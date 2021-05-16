@@ -1,0 +1,110 @@
+﻿@inject IColorToCssMapper colorToCssMapper
+
+@code {
+    private Vial vial;
+    [ParameterAttribute]
+    public Vial Vial
+    {
+        get
+        {
+            return vial;
+        }
+        set
+        {
+            vial = value;
+
+            Render(vial);
+        }
+    }
+
+    [ParameterAttribute]
+    public int VialIndex { get; set; }
+
+    [ParameterAttribute]
+    public IClickHandler ClickHandler { get; set; }
+
+    private string topClass = "top-empty";
+    private string thirdClass = "third-empty";
+    private string secondClass = "second-empty";
+    private string bottomClass = "bottom-empty";
+
+    private void SetCss(int index, string className)
+    {
+        if (index == 0)
+        {
+            bottomClass = className;
+        }
+        else if (index == 1)
+        {
+            secondClass = className;
+        }
+        else if (index == 2)
+        {
+            thirdClass = className;
+        }
+        else if (index == 3)
+        {
+            topClass = className;
+        }
+        else
+        {
+            throw new Exception($"Unknown vial level index (index : {index}).");
+        }
+    }
+
+    private void Render(Vial vial)
+    {
+        if (vial != null)
+        {
+            var colors = vial.Colors.ToArray();
+
+            //for (int i = 0; i < Vial.Length; i++)
+            //{
+            //    SetCss(i, colorToCssMapper.Map(i, colors[i]));
+            //}
+
+            for (int i = 0; i < colors.Length; i++)
+            {
+                SetCss(i, colorToCssMapper.Map(i, colors[i]));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < Vial.Length; i++)
+            {
+                SetCss(i, colorToCssMapper.Map(i, Color.None));
+            }
+        }
+    }
+
+    private void HandleClick(MouseEventArgs e)
+    {
+        ClickHandler.Handle(this);
+    }
+}
+
+@functions{
+    //private void SetVial(Vial vial)
+    //{
+    //    var colors = vial.Colors.ToArray();
+
+    //    for (int i = 0; i < Vial.Length; i++)
+    //    {
+    //        Console.WriteLine($"Setting css at tier '{i}'.");
+    //        SetCss(i, colorToCssMapper.Map(i, colors[i]));
+    //    }
+    //}
+}
+
+<div class="vial" @onclick="HandleClick">
+    <div class="vial-pad">
+    </div>
+    <div class="@topClass">
+    </div>
+    <div class="@thirdClass">
+    </div>
+    <div class="@secondClass">
+    </div>
+    <div class="@bottomClass">
+    </div>
+</div>

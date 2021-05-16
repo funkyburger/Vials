@@ -1,0 +1,73 @@
+﻿@code {
+    public IEnumerable<VialView> vialViews;
+
+    private VialSet set;
+    public VialSet Set
+    {
+        get
+        {
+            return set;
+        }
+        set
+        {
+            set = value;
+            StateHasChanged();
+        }
+    }
+
+    private VialSetView ada;
+
+    //private RenderFragment CreateComponent(RenderTreeBuilder builder)
+    //{
+    //    builder.OpenComponent(0, typeof(VialView));
+    //    builder.AddAttribute(1, "Placeholder", "Enter your text");
+    //    builder.CloseComponent();
+
+    //    return builder.;
+    //}
+}
+
+@functions {
+    //public void SetVialSet(VialSet set)
+    //{
+    //    //vialViews = set.Vials;
+    //    //vialViews = new List<VialView>();
+    //    //var vialViewList = new List<VialView>();
+
+    //    //foreach (var vial in set.Vials)
+    //    //{
+    //    //    vialViewList.Add(new VialView());
+    //    //}
+
+    //    //vialViews = vialViewList;
+
+    //    //foreach(var vial in set.Vials)
+    //    //{
+    //    //    //vialViewList.ElementAt()
+    //    //}
+    //}
+}
+
+@if (Set != null)
+{
+    <div class="marks">
+        @foreach (var vial in Set.Vials)
+        {
+            <div class="mark selected-mark"></div>
+        }
+    </div>
+
+    <div class="clear"></div>
+
+    var i = 0;
+
+    <div class="vial-set">
+        @foreach (var vial in Set.Vials)
+        {
+            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler(Set))" />
+
+            i++;
+        }
+    </div>
+    <div class="clear"></div>
+}

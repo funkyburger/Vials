@@ -1,0 +1,22 @@
+﻿<h3>Test</h3>
+
+@code {
+
+    private string text = null;
+    [ParameterAttribute]
+    public string Text {
+        get {
+            return text;
+        }
+        set {
+            text = value;
+            StateHasChanged();
+        }
+    }
+}
+
+@functions{
+
+}
+
+<div>@Text</div>

@@ -1,0 +1,108 @@
+﻿.vial {
+    background: url("../images/emptyvial.png") no-repeat;
+    height: 200px;
+    width: 50px;
+    display: grid;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.clear {
+    clear:both;
+}
+
+.vial-selected {
+    background-color: red;
+}
+
+.vial-set {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.vial-pad {
+    position: relative;
+    height: 35px;
+    width: 50px;
+}
+
+.bottom-tier {
+    position: relative;
+    height: 45px;
+    right: 10px;
+    width: 50px;
+    /*padding-left: 10px;
+    padding-right: 10px;*/
+}
+
+.regular-tier {
+    position: relative;
+    height: 40px;
+    right:10px;
+    width: 50px;
+    /*padding-left: 10px;
+    padding-right: 10px;*/
+}
+
+.bottom-red {
+    background: url("../images/redbottom.png") no-repeat;
+}
+
+.regular-red {
+    background: url("../images/redpart.png") no-repeat;
+}
+
+.bottom-yellow {
+    background: url("../images/yellowbottom.png") no-repeat;
+}
+
+.regular-yellow {
+    background: url("../images/yellowpart.png") no-repeat;
+}
+
+.bottom-green {
+    background: url("../images/greenbottom.png") no-repeat;
+}
+
+.regular-green {
+    background: url("../images/greenpart.png") no-repeat;
+}
+
+.bottom-blue {
+    background: url("../images/bluebottom.png") no-repeat;
+}
+
+.regular-blue {
+    background: url("../images/bluepart.png") no-repeat;
+}
+
+.marks{
+
+}
+
+.mark {
+    /*border: green thin dashed;*/
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width:30px;
+    height:30px;
+    /*position:relative;
+    left:10px;*/
+}
+
+.unselected-mark {
+}
+
+.selected-mark {
+    background: url("../images/selected.png") no-repeat;
+}
+
+.option-mark {
+    background: url("../images/option.png") no-repeat;
+}
