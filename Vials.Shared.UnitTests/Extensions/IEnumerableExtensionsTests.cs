@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vials.Core;
-using Vials.Core.Extensions;
+using Vials.Shared.Extensions;
 
-namespace Vials.Core.UnitTests.Extensions
+namespace Vials.Shared.UnitTests.Extensions
 {
     [TestClass]
     public class IEnumerableExtensionsTests
