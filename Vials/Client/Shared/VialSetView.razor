@@ -1,4 +1,6 @@
-﻿@code {
+﻿@inject IVialSetHandler vialSetHandler
+
+@code {
     public IEnumerable<VialView> vialViews;
 
     private VialSet set;
@@ -11,36 +13,12 @@
         set
         {
             set = value;
-            Console.WriteLine("VialSet is set.");
             StateHasChanged();
         }
-    }
-
-    private void HandleVialClick(MouseEventArgs e)
-    {
-
     }
 }
 
 @functions {
-    //public void SetVialSet(VialSet set)
-    //{
-    //    //vialViews = set.Vials;
-    //    //vialViews = new List<VialView>();
-    //    //var vialViewList = new List<VialView>();
-
-    //    //foreach (var vial in set.Vials)
-    //    //{
-    //    //    vialViewList.Add(new VialView());
-    //    //}
-
-    //    //vialViews = vialViewList;
-
-    //    //foreach(var vial in set.Vials)
-    //    //{
-    //    //    //vialViewList.ElementAt()
-    //    //}
-    //}
 }
 
 @if (Set != null)
@@ -48,7 +26,14 @@
     <div class="marks">
         @foreach (var vial in Set.Vials)
         {
-            <div class="mark selected-mark"></div>
+            if (vial.IsSelected)
+            {
+                <div class="indicator selected-indicator"></div>
+            }
+            else
+            {
+                <div class="indicator"></div>
+            }
         }
     </div>
 
@@ -59,9 +44,7 @@
     <div class="vial-set">
         @foreach (var vial in Set.Vials)
         {
-            Console.WriteLine("pipi");
-
-            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler())" />
+            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler(this, set, vialSetHandler))" />
 
             i++;
         }

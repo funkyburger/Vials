@@ -76,6 +76,90 @@ namespace Vials.Shared.UnitTests
         }
 
         [TestMethod]
+        public void VialMultiplePouring()
+        {
+            var set = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Green, Color.Green }),
+                    new Vial(new Color[] { Color.Green })
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 0);
+            resultingSet.Vials.First().IsSelected.ShouldBeTrue();
+
+            resultingSet = handler.Select(set, 1);
+
+            var vials = resultingSet.Vials.ToArray();
+            foreach (var vial in vials)
+            {
+                vial.IsSelected.ShouldBeFalse();
+            }
+
+            vials[0].Colors.ToArray().ShouldBe(new Color[] { Color.Red, });
+            vials[1].Colors.ToArray().ShouldBe(new Color[] { Color.Green, Color.Green, Color.Green });
+        }
+
+        [TestMethod]
+        public void VialMultiplePouringInEmptyVial()
+        {
+            var set = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Green, Color.Green }),
+                    new Vial()
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 0);
+            resultingSet.Vials.First().IsSelected.ShouldBeTrue();
+
+            resultingSet = handler.Select(set, 1);
+
+            var vials = resultingSet.Vials.ToArray();
+            foreach (var vial in vials)
+            {
+                vial.IsSelected.ShouldBeFalse();
+            }
+
+            vials[0].Colors.ToArray().ShouldBe(new Color[] { Color.Red, });
+            vials[1].Colors.ToArray().ShouldBe(new Color[] { Color.Green, Color.Green });
+        }
+
+        [TestMethod]
+        public void VialMultiplePouringOverflowingVial()
+        {
+            var set = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Green, Color.Green }),
+                    new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green })
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 0);
+            resultingSet.Vials.First().IsSelected.ShouldBeTrue();
+
+            resultingSet = handler.Select(set, 1);
+
+            var vials = resultingSet.Vials.ToArray();
+            foreach (var vial in vials)
+            {
+                vial.IsSelected.ShouldBeFalse();
+            }
+
+            vials[0].Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Green });
+            vials[1].Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Yellow, Color.Green, Color.Green });
+        }
+
+        [TestMethod]
         public void PouringOnWrongColor()
         {
             var set = GenerateTestSetWithSomeMovesDone();
@@ -91,10 +175,6 @@ namespace Vials.Shared.UnitTests
             resultingSet = handler.Select(set, 3);
 
             var vials = resultingSet.Vials.ToArray();
-            //foreach (var vial in vials)
-            //{
-            //    vial.IsSelected.ShouldBeFalse();
-            //}
 
             vials[0].Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Yellow, Color.Green });
             vials[2].Colors.ToArray().ShouldBe(new Color[] { Color.Yellow, Color.Red, Color.Blue });

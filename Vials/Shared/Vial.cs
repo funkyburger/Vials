@@ -43,6 +43,7 @@ namespace Vials.Shared
         }
 
         public bool IsFull => _colors.Count() >= Length;
+        public bool IsEmpty => !_colors.Any();
 
         public bool IsComplete
         {

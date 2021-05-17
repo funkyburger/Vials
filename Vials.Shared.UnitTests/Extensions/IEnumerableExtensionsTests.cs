@@ -29,5 +29,21 @@ namespace Vials.Shared.UnitTests.Extensions
                 temp.Add(item);
             }
         }
+
+        [TestMethod]
+        public void FirsteIndexOfReturnsWhatItSays()
+        {
+            var enumerable = new string[] { "toto", "tata", "titi", "tutu" };
+
+            enumerable.FirstIndexOf(i => i == "titi").ShouldBe(2);
+        }
+
+        [TestMethod]
+        public void FirsteIndexOfReturnsMinusOneIfNotFound()
+        {
+            var enumerable = new string[] { "toto", "tata", "titi", "tutu" };
+
+            enumerable.FirstIndexOf(i => i == "tyty").ShouldBe(-1);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vials.Core.Extensions;
+using Vials.Shared.Extensions;
 using Vials.Shared;
 
 namespace Vials.Core
@@ -29,7 +29,6 @@ namespace Vials.Core
 
             for (int i = 0; i< numberOfEmptyVials; i++)
             {
-                //vials.Add(new Vial() { Colors = new Color[] { }});
                 vials.Add(new Vial());
             }
 
