@@ -57,9 +57,16 @@
         {
             var colors = vial.Colors.ToArray();
 
-            for (int i = 0; i < colors.Length; i++)
+            for (int i = 0; i < Vial.Length; i++)
             {
-                SetCss(i, colorToCssMapper.Map(i, colors[i]));
+                if(i < colors.Length)
+                {
+                    SetCss(i, colorToCssMapper.Map(i, colors[i]));
+                }
+                else
+                {
+                    SetCss(i, colorToCssMapper.Map(i, Color.None));
+                }
             }
         }
         else
