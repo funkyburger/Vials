@@ -12,7 +12,6 @@
         set
         {
             vial = value;
-
             Render(vial);
         }
     }
@@ -58,14 +57,16 @@
         {
             var colors = vial.Colors.ToArray();
 
-            //for (int i = 0; i < Vial.Length; i++)
-            //{
-            //    SetCss(i, colorToCssMapper.Map(i, colors[i]));
-            //}
-
-            for (int i = 0; i < colors.Length; i++)
+            for (int i = 0; i < Vial.Length; i++)
             {
-                SetCss(i, colorToCssMapper.Map(i, colors[i]));
+                if(i < colors.Length)
+                {
+                    SetCss(i, colorToCssMapper.Map(i, colors[i]));
+                }
+                else
+                {
+                    SetCss(i, colorToCssMapper.Map(i, Color.None));
+                }
             }
         }
         else
@@ -84,16 +85,6 @@
 }
 
 @functions{
-    //private void SetVial(Vial vial)
-    //{
-    //    var colors = vial.Colors.ToArray();
-
-    //    for (int i = 0; i < Vial.Length; i++)
-    //    {
-    //        Console.WriteLine($"Setting css at tier '{i}'.");
-    //        SetCss(i, colorToCssMapper.Map(i, colors[i]));
-    //    }
-    //}
 }
 
 <div class="vial" @onclick="HandleClick">

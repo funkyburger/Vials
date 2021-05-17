@@ -79,12 +79,7 @@
     background: url("../images/bluepart.png") no-repeat;
 }
 
-.marks{
-
-}
-
-.mark {
-    /*border: green thin dashed;*/
+.indicator {
     float: left;
     padding-left: 10px;
     padding-right: 10px;
@@ -92,17 +87,15 @@
     margin-right: 20px;
     width:30px;
     height:30px;
-    /*position:relative;
-    left:10px;*/
 }
 
-.unselected-mark {
+.unselected-indicator {
 }
 
-.selected-mark {
+.selected-indicator {
     background: url("../images/selected.png") no-repeat;
 }
 
-.option-mark {
+.option-indicator {
     background: url("../images/option.png") no-repeat;
 }

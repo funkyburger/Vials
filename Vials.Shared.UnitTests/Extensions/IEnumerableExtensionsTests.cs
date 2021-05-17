@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vials.Core;
-using Vials.Core.Extensions;
+using Vials.Shared.Extensions;
 
-namespace Vials.Core.UnitTests.Extensions
+namespace Vials.Shared.UnitTests.Extensions
 {
     [TestClass]
     public class IEnumerableExtensionsTests
@@ -28,6 +28,22 @@ namespace Vials.Core.UnitTests.Extensions
                 enumerable.ShouldContain(item);
                 temp.Add(item);
             }
+        }
+
+        [TestMethod]
+        public void FirsteIndexOfReturnsWhatItSays()
+        {
+            var enumerable = new string[] { "toto", "tata", "titi", "tutu" };
+
+            enumerable.FirstIndexOf(i => i == "titi").ShouldBe(2);
+        }
+
+        [TestMethod]
+        public void FirsteIndexOfReturnsMinusOneIfNotFound()
+        {
+            var enumerable = new string[] { "toto", "tata", "titi", "tutu" };
+
+            enumerable.FirstIndexOf(i => i == "tyty").ShouldBe(-1);
         }
     }
 }
