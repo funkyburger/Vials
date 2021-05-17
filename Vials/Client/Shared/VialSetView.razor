@@ -11,20 +11,15 @@
         set
         {
             set = value;
+            Console.WriteLine("VialSet is set.");
             StateHasChanged();
         }
     }
 
-    private VialSetView ada;
+    private void HandleVialClick(MouseEventArgs e)
+    {
 
-    //private RenderFragment CreateComponent(RenderTreeBuilder builder)
-    //{
-    //    builder.OpenComponent(0, typeof(VialView));
-    //    builder.AddAttribute(1, "Placeholder", "Enter your text");
-    //    builder.CloseComponent();
-
-    //    return builder.;
-    //}
+    }
 }
 
 @functions {
@@ -64,7 +59,9 @@
     <div class="vial-set">
         @foreach (var vial in Set.Vials)
         {
-            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler(Set))" />
+            Console.WriteLine("pipi");
+
+            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler())" />
 
             i++;
         }

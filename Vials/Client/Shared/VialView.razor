@@ -11,8 +11,9 @@
         }
         set
         {
+            Console.WriteLine("Vial is set.");
             vial = value;
-
+            Console.WriteLine("just before render.");
             Render(vial);
         }
     }
@@ -54,9 +55,13 @@
 
     private void Render(Vial vial)
     {
+        Console.WriteLine("render");
+
         if (vial != null)
         {
             var colors = vial.Colors.ToArray();
+
+            Console.WriteLine($"count : '{colors.Count()}'");
 
             //for (int i = 0; i < Vial.Length; i++)
             //{
@@ -65,11 +70,14 @@
 
             for (int i = 0; i < colors.Length; i++)
             {
+                Console.WriteLine($"color : '{colors[i].ToString()}'");
+
                 SetCss(i, colorToCssMapper.Map(i, colors[i]));
             }
         }
         else
         {
+            Console.WriteLine($"vial is null");
             for (int i = 0; i < Vial.Length; i++)
             {
                 SetCss(i, colorToCssMapper.Map(i, Color.None));
