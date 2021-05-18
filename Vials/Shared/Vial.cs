@@ -117,6 +117,16 @@ namespace Vials.Shared
             return poped;
         }
 
+        public bool CanPour(Color color)
+        {
+            if (IsEmpty)
+            {
+                return true;
+            }
+
+            return !IsFull && TopColor == color;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

@@ -19,6 +19,10 @@ namespace Vials.Shared
                 if (target.IsSelected)
                 {
                     target.IsSelected = false;
+                    foreach (var vial in set.Vials)
+                    {
+                        vial.IsOption = false;
+                    }
                     return set;
                 }
                 else
@@ -31,8 +35,13 @@ namespace Vials.Shared
             else
             {
                 var target = set.Vials.ElementAt(index);
+                if (target.IsEmpty)
+                {
+                    return set;
+                }
+                
                 target.IsSelected = true;
-                return set;
+                return MarkOptions(set, target);
             }
         }
 
@@ -46,16 +55,33 @@ namespace Vials.Shared
                 return set;
             }
 
-            if (!to.IsEmpty && from.TopColor != to.TopColor)
-            {
-                return set;
-            }
+            var fromColor = from.TopColor;
 
-            from.IsSelected = false;
-
-            while ((from.TopColor == to.TopColor || to.IsEmpty) && !to.IsFull)
+            while (from.TopColor == fromColor && to.CanPour(fromColor))
             {
                 to.Stack(from.Pop());
+                from.IsSelected = false;
+            }
+
+            // ie pouring is done
+            if (!from.IsSelected)
+            {
+                foreach(var vial in set.Vials)
+                {
+                    vial.IsOption = false;
+                }
+            }
+
+            return set;
+        }
+
+        private VialSet MarkOptions(VialSet set, Vial selected)
+        {
+            var color = selected.TopColor;
+
+            foreach(var vial in set.Vials)
+            {
+                vial.IsOption = !vial.IsSelected && vial.CanPour(color);
             }
 
             return set;
