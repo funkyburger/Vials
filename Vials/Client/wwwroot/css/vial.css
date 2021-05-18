@@ -34,8 +34,6 @@
     height: 45px;
     right: 10px;
     width: 50px;
-    /*padding-left: 10px;
-    padding-right: 10px;*/
 }
 
 .regular-tier {
@@ -43,8 +41,6 @@
     height: 40px;
     right:10px;
     width: 50px;
-    /*padding-left: 10px;
-    padding-right: 10px;*/
 }
 
 .bottom-red {
@@ -87,9 +83,6 @@
     margin-right: 20px;
     width:30px;
     height:30px;
-}
-
-.unselected-indicator {
 }
 
 .selected-indicator {
