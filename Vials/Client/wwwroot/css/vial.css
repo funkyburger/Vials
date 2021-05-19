@@ -92,3 +92,7 @@
 .option-indicator {
     background: url("../images/option.png") no-repeat;
 }
+
+.victory {
+    color: red;
+}
