@@ -22,6 +22,11 @@ namespace Vials.Client.Utils
 
         public void Handle(object sender)
         {
+            if (Set.IsComplete)
+            {
+                return;
+            }
+
             var index = ((VialView)sender).VialIndex;
 
             View.Set = _vialSetHandler.Select(Set, index);

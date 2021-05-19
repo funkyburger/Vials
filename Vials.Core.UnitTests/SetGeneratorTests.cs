@@ -21,13 +21,13 @@ namespace Vials.Core.UnitTests
             var colors = set.Vials.Select(v => v.Colors).ToArray();
             set.Vials.Count().ShouldBe(6);
 
-            foreach(var vial in set.Vials)
+            foreach(var vial in set.Vials.Take(4))
             {
                 vial.Colors.Count().ShouldBe(4);
             }
 
-            set.Vials.Last().Colors.ShouldAllBe(c => c == Color.None);
-            set.Vials.TakeLast(2).First().Colors.ShouldAllBe(c => c == Color.None);
+            set.Vials.Last().Colors.ShouldBeEmpty();
+            set.Vials.TakeLast(2).First().Colors.ShouldBeEmpty();
         }
     }
 }
