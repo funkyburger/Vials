@@ -74,5 +74,55 @@ namespace Vials.Shared.UnitTests
             history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Green, Color.Yellow });
             history.GetNext().ShouldBeNull();
         }
+
+        [TestMethod]
+        public void HistoryCanBeEnumerated()
+        {
+            var history = new VialSetHistory();
+
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
+
+            int index = 0;
+            foreach (var item in history)
+            {
+                if(index == 0)
+                {
+                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
+                }
+                else if (index == 1)
+                {
+                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
+                }
+                else if (index == 2)
+                {
+                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
+                }
+
+                index++;
+            }
+        }
+
+        [TestMethod]
+        public void ClearHistory()
+        {
+            var history = new VialSetHistory();
+
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
+            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
+
+            history.GetPrevious().ShouldNotBeNull();
+            history.Any().ShouldBeTrue();
+
+            history.Clear();
+
+            history.Any().ShouldBeFalse();
+
+            history.Current.ShouldBeNull();
+            history.GetPrevious().ShouldBeNull();
+            history.GetNext().ShouldBeNull();
+        }
     }
 }

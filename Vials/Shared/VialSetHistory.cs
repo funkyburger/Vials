@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,6 +53,12 @@ namespace Vials.Shared
             return null;
         }
 
+        public void Clear()
+        {
+            vialSets.Clear();
+            currentIndex = -1;
+        }
+
         private void ClearUpcoming()
         {
             if (currentIndex < 0)
@@ -63,6 +70,16 @@ namespace Vials.Shared
             {
                 vialSets.RemoveAt(currentIndex + 1);
             }
+        }
+
+        public IEnumerator<VialSet> GetEnumerator()
+        {
+            return vialSets.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return vialSets.GetEnumerator();
         }
     }
 }
