@@ -1,4 +1,6 @@
 ﻿@page "/default"
 @inherits CodeBehind.Default
 
-<VialSetView @ref="vialSetView" />
+<Controls @ref="controls"/>
+
+<VialSetView @ref="vialSetView" MoveWasMadeHandler="MoveWasMadeHandler" />
