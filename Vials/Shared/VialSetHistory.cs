@@ -21,7 +21,7 @@ namespace Vials.Shared
 
         public VialSet Undo(VialSet set)
         {
-            if (currentIndex >= 0)
+            if (CanUndo)
             {
                 RevertMove(set, _pourings[currentIndex]);
                 currentIndex--;
@@ -32,7 +32,7 @@ namespace Vials.Shared
 
         public VialSet Redo(VialSet set)
         {
-            if (currentIndex < _pourings.Count() - 1)
+            if (CanRedo)
             {
                 currentIndex++;
                 ApplyMove(set, _pourings[currentIndex]);
@@ -40,6 +40,10 @@ namespace Vials.Shared
 
             return set;
         }
+
+        public bool CanUndo => currentIndex >= 0;
+
+        public bool CanRedo => currentIndex < _pourings.Count() - 1;
 
         private void ClearUpcoming()
         {

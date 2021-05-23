@@ -269,5 +269,82 @@ namespace Vials.Shared.UnitTests
                 }
             }).ShouldBeTrue();
         }
+
+        [TestMethod]
+        public void IndicatesIfCanUndo()
+        {
+            var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
+
+            history.CanUndo.ShouldBeFalse();
+
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
+
+            history.CanUndo.ShouldBeTrue();
+
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
+
+            history.CanUndo.ShouldBeTrue();
+
+            history.Undo(set);
+            history.CanUndo.ShouldBeTrue();
+
+            history.Undo(set);
+            history.CanUndo.ShouldBeFalse();
+
+            history.Redo(set);
+            history.CanUndo.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void IndicatesIfCanRedo()
+        {
+            var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
+
+            history.CanRedo.ShouldBeFalse();
+
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
+
+            history.CanRedo.ShouldBeFalse();
+
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
+
+            history.CanRedo.ShouldBeFalse();
+
+            history.Undo(set);
+            history.CanRedo.ShouldBeTrue();
+
+            history.Undo(set);
+            history.CanRedo.ShouldBeTrue();
+
+            history.Redo(set);
+            history.CanRedo.ShouldBeTrue();
+
+            history.Redo(set);
+            history.CanRedo.ShouldBeFalse();
+        }
     }
 }
