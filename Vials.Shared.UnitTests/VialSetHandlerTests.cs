@@ -280,6 +280,81 @@ namespace Vials.Shared.UnitTests
             }
         }
 
+        [TestMethod]
+        public void SetIsMarkedAsChanged()
+        {
+            var set = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green }),
+                    new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Yellow, Color.Red, Color.Green }),
+                    new Vial(new Color[] { Color.Red, Color.Blue, Color.Yellow, Color.Green }),
+                    new Vial(),
+                    new Vial()
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 3);
+            resultingSet = handler.Select(resultingSet, 2);
+
+            resultingSet.HasChanged.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void SetIsntMarkedAsChangedIfNoMoveIsMade()
+        {
+            var set = new VialSet()
+            {
+                HasChanged = true,
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green }),
+                    new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Yellow, Color.Red, Color.Green }),
+                    new Vial(new Color[] { Color.Red, Color.Blue, Color.Yellow, Color.Green }),
+                    new Vial(),
+                    new Vial()
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 2);
+            resultingSet = handler.Select(resultingSet, 3);
+
+            resultingSet.HasChanged.ShouldBeFalse();
+        }
+
+        [TestMethod]
+        public void SetIsntMarkedAsChangedOnSelect()
+        {
+            var set = new VialSet()
+            {
+                HasChanged = true,
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green }),
+                    new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Yellow, Color.Red, Color.Green }),
+                    new Vial(new Color[] { Color.Red, Color.Blue, Color.Yellow, Color.Green }),
+                    new Vial(),
+                    new Vial()
+                }
+            };
+
+            var handler = new VialSetHandler();
+
+            var resultingSet = handler.Select(set, 2);
+
+            resultingSet.HasChanged.ShouldBeFalse();
+
+            set.HasChanged = true;
+            resultingSet = handler.Select(set, 2);
+
+            resultingSet.HasChanged.ShouldBeFalse();
+        }
+
         private VialSet GenerateTestSet()
         {
             return new VialSet()

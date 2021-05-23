@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vials.Core", "Vials.Core\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vials.Core.UnitTests", "Vials.Core.UnitTests\Vials.Core.UnitTests.csproj", "{1FA10AE4-2193-4EBE-8A3B-F8FBED4E6105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vials.Shared.UnitTests", "Vials.Shared.UnitTests\Vials.Shared.UnitTests.csproj", "{5A0ED565-C67B-4DD0-9AEB-C6F75CC6F284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vials.Shared.UnitTests", "Vials.Shared.UnitTests\Vials.Shared.UnitTests.csproj", "{5A0ED565-C67B-4DD0-9AEB-C6F75CC6F284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
