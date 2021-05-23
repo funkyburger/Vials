@@ -29,7 +29,6 @@ namespace Vials.Client.CodeBehind
             }
             set
             {
-                Console.WriteLine("VialSet.Set is set.");
                 set = value;
                 StateHasChanged();
             }

@@ -8,7 +8,7 @@ namespace Vials.Shared
     public class VialSet : IVialSet
     {
         public IEnumerable<Vial> Vials { get; set; }
-        public bool HasChanged { get; set; }
+        public bool HasChanged => LastAppliedPouring != null;
         public Pouring LastAppliedPouring { get; set; }
 
         public bool IsComplete 

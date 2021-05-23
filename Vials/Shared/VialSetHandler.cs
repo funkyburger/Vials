@@ -10,7 +10,6 @@ namespace Vials.Shared
     {
         public VialSet Select(VialSet set, int index)
         {
-            set.HasChanged = false;
             set.LastAppliedPouring = null;
             var selected = set.Vials.SingleOrDefault(v => v.IsSelected);
 
@@ -63,7 +62,6 @@ namespace Vials.Shared
             {
                 to.Stack(from.Pop());
                 from.IsSelected = false;
-                set.HasChanged = true;
 
                 if(set.LastAppliedPouring == null)
                 {
@@ -75,8 +73,7 @@ namespace Vials.Shared
                 }
             }
 
-            // ie pouring is done
-            if (!from.IsSelected)
+            if (set.HasChanged)
             {
                 foreach(var vial in set.Vials)
                 {
