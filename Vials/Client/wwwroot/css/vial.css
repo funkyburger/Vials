@@ -34,8 +34,6 @@
     height: 45px;
     right: 10px;
     width: 50px;
-    /*padding-left: 10px;
-    padding-right: 10px;*/
 }
 
 .regular-tier {
@@ -43,8 +41,6 @@
     height: 40px;
     right:10px;
     width: 50px;
-    /*padding-left: 10px;
-    padding-right: 10px;*/
 }
 
 .bottom-red {
@@ -89,13 +85,14 @@
     height:30px;
 }
 
-.unselected-indicator {
-}
-
 .selected-indicator {
     background: url("../images/selected.png") no-repeat;
 }
 
 .option-indicator {
     background: url("../images/option.png") no-repeat;
+}
+
+.victory {
+    color: red;
 }

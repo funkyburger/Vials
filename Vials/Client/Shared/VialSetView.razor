@@ -1,25 +1,4 @@
-﻿@inject IVialSetHandler vialSetHandler
-
-@code {
-    public IEnumerable<VialView> vialViews;
-
-    private VialSet set;
-    public VialSet Set
-    {
-        get
-        {
-            return set;
-        }
-        set
-        {
-            set = value;
-            StateHasChanged();
-        }
-    }
-}
-
-@functions {
-}
+﻿@inherits CodeBehind.VialSetView
 
 @if (Set != null)
 {
@@ -29,6 +8,10 @@
             if (vial.IsSelected)
             {
                 <div class="indicator selected-indicator"></div>
+            }
+            else if (vial.IsOption)
+            {
+                <div class="indicator option-indicator"></div>
             }
             else
             {
@@ -44,10 +27,14 @@
     <div class="vial-set">
         @foreach (var vial in Set.Vials)
         {
-            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler(this, set, vialSetHandler))" />
+            <VialView Vial="@vial" VialIndex="@i" ClickHandler="@(new VialClickedHandler(this, set, VialSetHandler, MoveWasMadeHandler))" />
 
             i++;
         }
     </div>
     <div class="clear"></div>
+    if (set.IsComplete)
+    {
+        <div class="victory">You won !</div>
+    }
 }
