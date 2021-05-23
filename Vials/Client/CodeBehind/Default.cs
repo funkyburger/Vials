@@ -30,6 +30,11 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
         }
 
+        public void Redo()
+        {
+            vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
+        }
+
         public void MoveWasMade(Pouring pouring)
         {
             VialSetHistory.RegisterMove(pouring);
@@ -44,9 +49,10 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
         }
 
-        protected override async void OnAfterRender(bool firstRender)
+        protected override void OnAfterRender(bool firstRender)
         {
             controls.AddEventHandler(new UndoEventHandler(this));
+            controls.AddEventHandler(new RedoEventHandler(this));
 
             NewGame();
         }

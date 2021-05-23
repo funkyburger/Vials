@@ -8,6 +8,7 @@ namespace Vials.Shared.Events
     {
         Undo,
         MoveWasMade,
-        VialWasClicked
+        VialWasClicked,
+        Redo
     }
 }
