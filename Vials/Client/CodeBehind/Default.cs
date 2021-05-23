@@ -28,11 +28,21 @@ namespace Vials.Client.CodeBehind
 
         public void Undo()
         {
+            if (vialSetView.Set.IsComplete)
+            {
+                return;
+            }
+
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
         }
 
         public void Redo()
         {
+            if (vialSetView.Set.IsComplete)
+            {
+                return;
+            }
+
             vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
         }
 
