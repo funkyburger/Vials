@@ -35,13 +35,19 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
         }
 
+        public void New()
+        {
+            NewGame();
+        }
+
         public void MoveWasMade(Pouring pouring)
         {
             VialSetHistory.RegisterMove(pouring);
         }
 
-        public async void NewGame()
+        public async Task NewGame()
         {
+            Console.WriteLine("NewGame()");
             Http.DefaultRequestHeaders
               .Accept
               .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
@@ -49,12 +55,11 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async void OnAfterRender(bool firstRender)
         {
-            controls.AddEventHandler(new UndoEventHandler(this));
-            controls.AddEventHandler(new RedoEventHandler(this));
+            controls.AddEventHandler(new ControlEventHandler(this));
 
-            NewGame();
+            await NewGame();
         }
     }
 }
