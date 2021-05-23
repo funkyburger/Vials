@@ -36,5 +36,27 @@ namespace Vials.Shared.Extensions
 
             return -1;
         }
+
+        public static bool IsEqualTo<T>(this IEnumerable<T> enumerable, IEnumerable<T> otherEnumerable)
+        {
+            if(otherEnumerable == null)
+            {
+                return false;
+            }
+            else if (enumerable.Count() != otherEnumerable.Count())
+            {
+                return false;
+            }
+
+            for(int i = 0; i < enumerable.Count(); i++)
+            {
+                if(!enumerable.ElementAt(i).Equals(otherEnumerable.ElementAt(i)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

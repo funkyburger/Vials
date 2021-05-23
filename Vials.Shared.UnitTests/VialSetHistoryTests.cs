@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Vials.Shared.Extensions;
 
 namespace Vials.Shared.UnitTests
 {
@@ -14,115 +15,259 @@ namespace Vials.Shared.UnitTests
         public void HistoryIsStacked()
         {
             var history = new VialSetHistory();
+            var set = new VialSet() { 
+                Vials = new Vial[] 
+                { 
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                } 
+            };
 
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
 
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
 
-            history.GetPrevious().Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                    new Vial(new Color[] { }),
+                }
+            }).ShouldBeTrue();
 
-            history.GetPrevious().Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
+            set = history.Undo(set);
 
-            history.GetPrevious().ShouldBeNull();
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Undo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Undo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
         }
 
         [TestMethod]
         public void NextCanBeFetched()
         {
             var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
 
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
 
-            history.GetPrevious();
-            history.GetPrevious();
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
 
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
+            set = history.Undo(set);
+            set = history.Undo(set);
 
-            history.GetNext().Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
+            set = history.Redo(set);
 
-            history.GetNext().Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
 
-            history.GetNext().ShouldBeNull();
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
+            set = history.Redo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                    new Vial(new Color[] { }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Redo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                    new Vial(new Color[] { }),
+                }
+            }).ShouldBeTrue();
         }
 
         [TestMethod]
         public void StoringErasesNextOnes()
         {
             var history = new VialSetHistory();
-
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
-
-            history.GetPrevious();
-            history.GetPrevious();
-
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
-
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Green, Color.Yellow }) } });
-
-            history.Current.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Green, Color.Yellow });
-            history.GetNext().ShouldBeNull();
-        }
-
-        [TestMethod]
-        public void HistoryCanBeEnumerated()
-        {
-            var history = new VialSetHistory();
-
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
-
-            int index = 0;
-            foreach (var item in history)
+            var set = new VialSet()
             {
-                if(index == 0)
+                Vials = new Vial[]
                 {
-                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red });
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
                 }
-                else if (index == 1)
-                {
-                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue });
-                }
-                else if (index == 2)
-                {
-                    item.Vials.Single().Colors.ToArray().ShouldBe(new Color[] { Color.Red, Color.Blue, Color.Green });
-                }
+            };
 
-                index++;
-            }
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
+
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
+
+            set = history.Undo(set);
+            set = history.Undo(set);
+
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(0).Pop());
+            history.RegisterMove(new Pouring(0, 1));
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { }),
+                    new Vial(new Color[] { Color.Green, Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Redo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { }),
+                    new Vial(new Color[] { Color.Green, Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
         }
 
         [TestMethod]
-        public void ClearHistory()
+        public void StoringErasesNextOnes2()
         {
             var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
 
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue }) } });
-            history.Store(new VialSet() { Vials = new Vial[] { new Vial(new Color[] { Color.Red, Color.Blue, Color.Green }) } });
+            set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 0));
 
-            history.GetPrevious().ShouldNotBeNull();
-            history.Any().ShouldBeTrue();
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
+            history.RegisterMove(new Pouring(2, 1, 2));
 
-            history.Clear();
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red}),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                    new Vial(new Color[] { }),
+                }
+            }).ShouldBeTrue();
 
-            history.Any().ShouldBeFalse();
+            set = history.Undo(set);
 
-            history.Current.ShouldBeNull();
-            history.GetPrevious().ShouldBeNull();
-            history.GetNext().ShouldBeNull();
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red}),
+                    new Vial(new Color[] { Color.Green }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set.Vials.ElementAt(2).Stack(set.Vials.ElementAt(1).Pop());
+            history.RegisterMove(new Pouring(1, 2));
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red}),
+                    new Vial(new Color[] { }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Undo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red}),
+                    new Vial(new Color[] { Color.Green }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
+
+            set = history.Redo(set);
+
+            set.ContentEquals(new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red, Color.Red}),
+                    new Vial(new Color[] { }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green }),
+                }
+            }).ShouldBeTrue();
         }
     }
 }

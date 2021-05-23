@@ -31,10 +31,10 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
         }
 
-        public void MoveWasMade(IEnumerable<Pouring> pourings)
+        public void MoveWasMade(Pouring pouring)
         {
             Console.WriteLine("MoveWasMade");
-            VialSetHistory.RegisterMove(pourings);
+            VialSetHistory.RegisterMove(pouring);
         }
 
         public async void NewGame()

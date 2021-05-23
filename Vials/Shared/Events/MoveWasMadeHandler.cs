@@ -23,7 +23,7 @@ namespace Vials.Shared.Events
 
             var vialClickedHandler = sender as VialClickedHandler;
 
-            _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPourings);
+            _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
         }
     }
 }

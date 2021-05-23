@@ -7,6 +7,6 @@ namespace Vials.Shared.Components
     public interface IDefault
     {
         void Undo();
-        void MoveWasMade(IEnumerable<Pouring> pourings);
+        void MoveWasMade(Pouring pouring);
     }
 }

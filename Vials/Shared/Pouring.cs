@@ -9,11 +9,18 @@ namespace Vials.Shared
     {
         public int From { get; private set; }
         public int To { get; private set; }
+        public int Quantity { get; private set; }
 
-        public Pouring(int from, int to)
+        public Pouring(int from, int to, int quantity = 1)
         {
             From = from;
             To = to;
+            Quantity = quantity;
+        }
+
+        public void Increment()
+        {
+            Quantity++;
         }
     }
 }

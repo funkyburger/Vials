@@ -11,7 +11,7 @@ namespace Vials.Shared
         [Obsolete]
         void Store(VialSet set);
         //void SetOriginal(VialSet set);
-        void RegisterMove(IEnumerable<Pouring> pourings);
+        void RegisterMove(Pouring pourings);
         [Obsolete]
         VialSet GetPrevious();
         [Obsolete]

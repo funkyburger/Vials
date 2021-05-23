@@ -11,7 +11,7 @@ namespace Vials.Shared
         public VialSet Select(VialSet set, int index)
         {
             set.HasChanged = false;
-            set.LastAppliedPourings = new Pouring[] { };
+            set.LastAppliedPouring = null;
             var selected = set.Vials.SingleOrDefault(v => v.IsSelected);
 
             if (selected != null)
@@ -51,7 +51,6 @@ namespace Vials.Shared
         {
             var from = set.Vials.ElementAt(indexFrom);
             var to = set.Vials.ElementAt(indexTo);
-            var appliedPourings = new List<Pouring>();
 
             if (from.IsEmpty)
             {
@@ -63,12 +62,18 @@ namespace Vials.Shared
             while (from.TopColor == fromColor && to.CanPour(fromColor))
             {
                 to.Stack(from.Pop());
-                appliedPourings.Add(new Pouring(indexFrom, indexTo));
                 from.IsSelected = false;
                 set.HasChanged = true;
-            }
 
-            set.LastAppliedPourings = appliedPourings;
+                if(set.LastAppliedPouring == null)
+                {
+                    set.LastAppliedPouring = new Pouring(indexFrom, indexTo);
+                }
+                else
+                {
+                    set.LastAppliedPouring.Increment();
+                }
+            }
 
             // ie pouring is done
             if (!from.IsSelected)
