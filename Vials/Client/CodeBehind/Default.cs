@@ -27,13 +27,11 @@ namespace Vials.Client.CodeBehind
 
         public void Undo()
         {
-            Console.WriteLine("Undo");
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
         }
 
         public void MoveWasMade(Pouring pouring)
         {
-            Console.WriteLine("MoveWasMade");
             VialSetHistory.RegisterMove(pouring);
         }
 
@@ -44,10 +42,6 @@ namespace Vials.Client.CodeBehind
               .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
 
             vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
-
-            // TODO
-            //VialSetHistory.Clear();
-            VialSetHistory.Store(vialSetView.Set);
         }
 
         protected override async void OnAfterRender(bool firstRender)
