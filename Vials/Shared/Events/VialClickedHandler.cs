@@ -8,7 +8,7 @@ using Vials.Shared.Events;
 
 namespace Vials.Shared.Events
 {
-    public class VialClickedHandler : IClickHandler
+    public class VialClickedHandler : IEventHandler
     {
         private readonly IVialSetView View;
         public VialSet Set { get; private set; }
@@ -23,8 +23,13 @@ namespace Vials.Shared.Events
             _eventHandler = eventHandler;
         }
 
-        public void Handle(object sender)
+        public void Handle(object sender, EventType eventType)
         {
+            if(eventType != EventType.VialWasClicked)
+            {
+                return;
+            }
+
             if (Set.IsComplete)
             {
                 return;
