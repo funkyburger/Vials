@@ -9,15 +9,16 @@ using Vials.Client.Shared;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Events;
+using Vials.Shared.Service;
 
 namespace Vials.Client.CodeBehind
 {
     public class Default : VialComponentBase, IDefault
     {
         [Inject]
-        protected HttpClient Http { get; set; }
-        [Inject]
         protected IVialSetHistory VialSetHistory { get; set; }
+        [Inject]
+        protected IGameService GameService { get; set; }
 
         protected VialSetView vialSetView;
 
@@ -47,12 +48,7 @@ namespace Vials.Client.CodeBehind
 
         public async Task NewGame()
         {
-            Console.WriteLine("NewGame()");
-            Http.DefaultRequestHeaders
-              .Accept
-              .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
-
-            vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
+            vialSetView.Set = await GameService.GetNewGame();
         }
 
         protected override async void OnAfterRender(bool firstRender)
