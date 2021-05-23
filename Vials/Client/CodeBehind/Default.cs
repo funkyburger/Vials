@@ -9,46 +9,81 @@ using Vials.Client.Shared;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Events;
+using Vials.Shared.Service;
 
 namespace Vials.Client.CodeBehind
 {
     public class Default : VialComponentBase, IDefault
     {
         [Inject]
-        protected HttpClient Http { get; set; }
-        [Inject]
         protected IVialSetHistory VialSetHistory { get; set; }
+        [Inject]
+        protected IGameService GameService { get; set; }
 
         protected VialSetView vialSetView;
 
-        protected Controls controls;
+        protected IControls controls;
 
         public IEventHandler MoveWasMadeHandler => new MoveWasMadeHandler(this);
 
         public void Undo()
         {
+            if (vialSetView.Set.IsComplete)
+            {
+                controls.CanUndo = false;
+                controls.CanRedo = false;
+                return;
+            }
+
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
+            RefreshControls();
+        }
+
+        public void Redo()
+        {
+            if (vialSetView.Set.IsComplete)
+            {
+                controls.CanUndo = false;
+                controls.CanRedo = false;
+                return;
+            }
+
+            vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
+            RefreshControls();
+        }
+
+        public void New()
+        {
+            NewGame();
         }
 
         public void MoveWasMade(Pouring pouring)
         {
             VialSetHistory.RegisterMove(pouring);
+            RefreshControls();
         }
 
-        public async void NewGame()
+        public async Task NewGame()
         {
-            Http.DefaultRequestHeaders
-              .Accept
-              .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
+            vialSetView.Set = await GameService.GetNewGame();
+            VialSetHistory.Reset();
 
-            vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
+            RefreshControls();
         }
 
         protected override async void OnAfterRender(bool firstRender)
         {
-            controls.AddEventHandler(new UndoEventHandler(this));
+            controls.AddEventHandler(new ControlEventHandler(this));
 
-            NewGame();
+            await NewGame();
+        }
+
+        private void RefreshControls()
+        {
+            Console.WriteLine("RefreshControls()");
+
+            controls.CanUndo = VialSetHistory.CanUndo;
+            controls.CanRedo = VialSetHistory.CanRedo;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vials.Shared;
 using Vials.Shared.Components;
+using Vials.Shared.Events;
 
 namespace Vials.Client.CodeBehind
 {
@@ -33,7 +34,7 @@ namespace Vials.Client.CodeBehind
         public int VialIndex { get; set; }
 
         [Parameter]
-        public IClickHandler ClickHandler { get; set; }
+        public IEventHandler ClickHandler { get; set; }
 
         protected string topClass = "top-empty";
         protected string thirdClass = "third-empty";
@@ -42,7 +43,7 @@ namespace Vials.Client.CodeBehind
 
         protected void HandleClick(MouseEventArgs e)
         {
-            ClickHandler.Handle(this);
+            ClickHandler.Handle(this, EventType.VialWasClicked);
         }
 
         private void SetCss(int index, string className)

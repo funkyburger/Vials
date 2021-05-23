@@ -9,5 +9,8 @@ namespace Vials.Shared
         void RegisterMove(Pouring pourings);
         VialSet Undo(VialSet set);
         VialSet Redo(VialSet set);
+        bool CanUndo { get; }
+        bool CanRedo { get; }
+        void Reset();
     }
 }
