@@ -66,6 +66,7 @@ namespace Vials.Client.CodeBehind
         public async Task NewGame()
         {
             vialSetView.Set = await GameService.GetNewGame();
+            VialSetHistory.Reset();
 
             RefreshControls();
         }

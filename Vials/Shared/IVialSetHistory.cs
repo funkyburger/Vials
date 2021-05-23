@@ -11,5 +11,6 @@ namespace Vials.Shared
         VialSet Redo(VialSet set);
         bool CanUndo { get; }
         bool CanRedo { get; }
+        void Reset();
     }
 }

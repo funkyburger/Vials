@@ -45,6 +45,12 @@ namespace Vials.Shared
 
         public bool CanRedo => currentIndex < _pourings.Count() - 1;
 
+        public void Reset()
+        {
+            _pourings.Clear();
+            currentIndex = -1;
+        }
+
         private void ClearUpcoming()
         {
             if(currentIndex < 0)
