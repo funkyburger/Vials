@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Vials.Shared
 {
-    public class VialSet : IVialSet
+    public class VialSet
     {
         public IEnumerable<Vial> Vials { get; set; }
         public bool HasChanged => LastAppliedPouring != null;

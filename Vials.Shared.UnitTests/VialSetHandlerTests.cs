@@ -308,7 +308,6 @@ namespace Vials.Shared.UnitTests
         {
             var set = new VialSet()
             {
-                HasChanged = true,
                 Vials = new Vial[] {
                     new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green }),
                     new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red }),
@@ -332,7 +331,6 @@ namespace Vials.Shared.UnitTests
         {
             var set = new VialSet()
             {
-                HasChanged = true,
                 Vials = new Vial[] {
                     new Vial(new Color[] { Color.Red, Color.Yellow, Color.Green }),
                     new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red }),
@@ -346,11 +344,6 @@ namespace Vials.Shared.UnitTests
             var handler = new VialSetHandler();
 
             var resultingSet = handler.Select(set, 2);
-
-            resultingSet.HasChanged.ShouldBeFalse();
-
-            set.HasChanged = true;
-            resultingSet = handler.Select(set, 2);
 
             resultingSet.HasChanged.ShouldBeFalse();
         }

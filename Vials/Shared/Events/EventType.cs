@@ -7,6 +7,7 @@ namespace Vials.Shared.Events
     public enum EventType
     {
         Undo,
-        MoveWasMade
+        MoveWasMade,
+        VialWasClicked
     }
 }
