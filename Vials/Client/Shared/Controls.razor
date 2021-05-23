@@ -2,6 +2,6 @@
 
 <div>
     <button @onclick="New">New</button>
-    <button @onclick="Undo">Undo</button>
-    <button @onclick="Redo">Redo</button>
+    <button @onclick="Undo" disabled="@(!CanUndo)">Undo</button>
+    <button @onclick="Redo" disabled="@(!CanRedo)">Redo</button>
 </div>
