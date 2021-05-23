@@ -12,7 +12,7 @@ namespace Vials.Client.CodeBehind
     {
         protected void New(MouseEventArgs e)
         {
-
+            LaunchEvent(EventType.New);
         }
 
         protected void Undo(MouseEventArgs e)

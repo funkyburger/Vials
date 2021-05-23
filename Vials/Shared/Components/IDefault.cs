@@ -8,6 +8,7 @@ namespace Vials.Shared.Components
     {
         void Undo();
         void Redo();
+        void New();
         void MoveWasMade(Pouring pouring);
     }
 }

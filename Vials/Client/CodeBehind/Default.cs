@@ -9,15 +9,16 @@ using Vials.Client.Shared;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Events;
+using Vials.Shared.Service;
 
 namespace Vials.Client.CodeBehind
 {
     public class Default : VialComponentBase, IDefault
     {
         [Inject]
-        protected HttpClient Http { get; set; }
-        [Inject]
         protected IVialSetHistory VialSetHistory { get; set; }
+        [Inject]
+        protected IGameService GameService { get; set; }
 
         protected VialSetView vialSetView;
 
@@ -35,26 +36,26 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
         }
 
+        public void New()
+        {
+            NewGame();
+        }
+
         public void MoveWasMade(Pouring pouring)
         {
             VialSetHistory.RegisterMove(pouring);
         }
 
-        public async void NewGame()
+        public async Task NewGame()
         {
-            Http.DefaultRequestHeaders
-              .Accept
-              .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
-
-            vialSetView.Set = await Http.GetFromJsonAsync<VialSet>("api/vial/new");
+            vialSetView.Set = await GameService.GetNewGame();
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async void OnAfterRender(bool firstRender)
         {
-            controls.AddEventHandler(new UndoEventHandler(this));
-            controls.AddEventHandler(new RedoEventHandler(this));
+            controls.AddEventHandler(new ControlEventHandler(this));
 
-            NewGame();
+            await NewGame();
         }
     }
 }
