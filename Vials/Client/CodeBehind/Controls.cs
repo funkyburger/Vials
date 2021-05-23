@@ -22,7 +22,7 @@ namespace Vials.Client.CodeBehind
 
         protected void Redo(MouseEventArgs e)
         {
-
+            LaunchEvent(EventType.Redo);
         }
     }
 }
