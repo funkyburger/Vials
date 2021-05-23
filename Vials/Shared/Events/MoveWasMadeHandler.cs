@@ -21,7 +21,9 @@ namespace Vials.Shared.Events
                 return;
             }
 
-            _def.MoveWasMade();
+            var vialClickedHandler = sender as VialClickedHandler;
+
+            _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPourings);
         }
     }
 }

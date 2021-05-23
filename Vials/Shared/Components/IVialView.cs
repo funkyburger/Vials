@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Vials.Shared.Components
 {
-    public interface IDefault
+    public interface IVialView
     {
-        void Undo();
-        void MoveWasMade(IEnumerable<Pouring> pourings);
+        int VialIndex { get; }
     }
 }

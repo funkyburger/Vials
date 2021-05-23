@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Shared;
+using Vials.Shared.Components;
 
 namespace Vials.Client.CodeBehind
 {
-    public class VialView : VialComponentBase
+    public class VialView : VialComponentBase, IVialView
     {
         [Inject]
         protected IColorToCssMapper colorToCssMapper { get; set; }

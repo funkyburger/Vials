@@ -9,6 +9,7 @@ namespace Vials.Shared
     {
         public IEnumerable<Vial> Vials { get; set; }
         public bool HasChanged { get; set; }
+        public IEnumerable<Pouring> LastAppliedPourings { get; set; }
 
         public bool IsComplete 
         { 

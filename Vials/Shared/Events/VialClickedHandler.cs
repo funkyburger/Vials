@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Vials.Client.Shared;
 using Vials.Shared;
+using Vials.Shared.Components;
 using Vials.Shared.Events;
 
-namespace Vials.Client.Utils
+namespace Vials.Shared.Events
 {
     public class VialClickedHandler : IClickHandler
     {
-        private readonly VialSetView View;
-        private readonly VialSet Set;
+        private readonly IVialSetView View;
+        public VialSet Set { get; private set; }
         private readonly IVialSetHandler _vialSetHandler;
         private readonly IEventHandler _eventHandler;
 
-        public VialClickedHandler(VialSetView view, VialSet set, IVialSetHandler vialSetHandler, IEventHandler eventHandler)
+        public VialClickedHandler(IVialSetView view, VialSet set, IVialSetHandler vialSetHandler, IEventHandler eventHandler)
         {
             View = view;
             Set = set;
@@ -30,9 +30,10 @@ namespace Vials.Client.Utils
                 return;
             }
 
-            var index = ((VialView)sender).VialIndex;
+            var index = ((IVialView)sender).VialIndex;
 
-            View.Set = _vialSetHandler.Select(Set, index);
+            Set = _vialSetHandler.Select(Set, index);
+            View.Set = Set;
 
             if (View.Set.HasChanged)
             {

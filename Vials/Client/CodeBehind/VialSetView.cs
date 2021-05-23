@@ -5,11 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vials.Client.Shared;
 using Vials.Shared;
+using Vials.Shared.Components;
 using Vials.Shared.Events;
 
 namespace Vials.Client.CodeBehind
 {
-    public class VialSetView : VialComponentBase
+    public class VialSetView : VialComponentBase, IVialSetView
     {
         public IEnumerable<VialView> vialViews;
 
@@ -28,6 +29,7 @@ namespace Vials.Client.CodeBehind
             }
             set
             {
+                Console.WriteLine("VialSet.Set is set.");
                 set = value;
                 StateHasChanged();
             }
