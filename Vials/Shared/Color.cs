@@ -10,6 +10,14 @@ namespace Vials.Shared
         Red,
         Yellow,
         Blue,
-        Green
+        LightBlue,
+        LightGreen,
+        Green,
+        DarkGreen,
+        Brown, 
+        DarkGrey,
+        Orange,
+        Pink,
+        Purple
     }
 }
