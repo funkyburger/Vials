@@ -75,6 +75,70 @@
     background: url("../images/bluepart.png") no-repeat;
 }
 
+.bottom-brown {
+    background: url("../images/brownbottom.png") no-repeat;
+}
+
+.regular-brown {
+    background: url("../images/brownpart.png") no-repeat;
+}
+
+.bottom-darkgreen {
+    background: url("../images/darkgreenbottom.png") no-repeat;
+}
+
+.regular-darkgreen {
+    background: url("../images/darkgreenpart.png") no-repeat;
+}
+
+.bottom-darkgrey {
+    background: url("../images/darkgreybottom.png") no-repeat;
+}
+
+.regular-darkgrey {
+    background: url("../images/darkgreypart.png") no-repeat;
+}
+
+.bottom-lightblue {
+    background: url("../images/lightbluebottom.png") no-repeat;
+}
+
+.regular-lightblue {
+    background: url("../images/lightbluepart.png") no-repeat;
+}
+
+.bottom-lightgreen {
+    background: url("../images/lightgreenbottom.png") no-repeat;
+}
+
+.regular-lightgreen {
+    background: url("../images/lightgreenpart.png") no-repeat;
+}
+
+.bottom-orange {
+    background: url("../images/orangebottom.png") no-repeat;
+}
+
+.regular-orange {
+    background: url("../images/orangepart.png") no-repeat;
+}
+
+.bottom-pink {
+    background: url("../images/pinkbottom.png") no-repeat;
+}
+
+.regular-pink {
+    background: url("../images/pinkpart.png") no-repeat;
+}
+
+.bottom-purple {
+    background: url("../images/purplebottom.png") no-repeat;
+}
+
+.regular-purple {
+    background: url("../images/purplepart.png") no-repeat;
+}
+
 .indicator {
     float: left;
     padding-left: 10px;
