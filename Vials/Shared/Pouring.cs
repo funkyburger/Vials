@@ -22,5 +22,17 @@ namespace Vials.Shared
         {
             Quantity++;
         }
+
+        public override string ToString()
+        {
+            if(Quantity == 1)
+            {
+                return $"{From} -> {To}";
+            }
+            else
+            {
+                return $"{From} -> {To} ({Quantity})";
+            }
+        }
     }
 }
