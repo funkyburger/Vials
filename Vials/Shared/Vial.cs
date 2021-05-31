@@ -138,5 +138,16 @@ namespace Vials.Shared
 
             return builder.ToString();
         }
+
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            foreach(var color in Colors)
+            {
+                hash.Add(color);
+            }
+
+            return hash.ToHashCode();
+        }
     }
 }

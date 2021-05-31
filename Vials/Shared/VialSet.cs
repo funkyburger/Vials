@@ -26,5 +26,16 @@ namespace Vials.Shared
                 return true;
             } 
         }
+
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            foreach (var vial in Vials)
+            {
+                hash.Add(vial);
+            }
+
+            return hash.ToHashCode();
+        }
     }
 }

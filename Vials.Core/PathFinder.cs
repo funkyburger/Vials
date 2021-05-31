@@ -9,7 +9,7 @@ namespace Vials.Core
     public class PathFinder : IPathFinder
     {
         private readonly ICloner _cloner;
-        private readonly IDictionary<VialSet, int> setRegister = new Dictionary<VialSet, int>();
+        private readonly IDictionary<int, int> setRegister = new Dictionary<int, int>();
 
         public PathFinder(ICloner cloner)
         {
@@ -33,12 +33,12 @@ namespace Vials.Core
             {
                 return null;
             }
-            if (setRegister.ContainsKey(set))
+            if (setRegister.ContainsKey(set.GetHashCode()))
             {
                 return null;
             }
 
-            setRegister.Add(set, 0);
+            setRegister.Add(set.GetHashCode(), 0);
 
             var moves = ListAvailableMoves(set);
 
