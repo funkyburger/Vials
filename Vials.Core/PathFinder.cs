@@ -10,6 +10,7 @@ namespace Vials.Core
     {
         private readonly ICloner _cloner;
         private readonly IDictionary<int, int> setRegister = new Dictionary<int, int>();
+        private int _maxPathLength = 200;
 
         public PathFinder(ICloner cloner)
         {
@@ -27,9 +28,11 @@ namespace Vials.Core
             return null;
         }
 
-        public IEnumerable<Pouring> FindPath(VialSet set, int step)
+        public IEnumerable<Pouring> FindPath(VialSet set, int length)
         {
-            if(step > 50)
+            IEnumerable<Pouring> shortestPath = null;
+
+            if(length >= _maxPathLength)
             {
                 return null;
             }
@@ -48,21 +51,27 @@ namespace Vials.Core
 
                 if (temp.IsComplete)
                 {
+                    _maxPathLength = length;
                     return new List<Pouring>(new Pouring[] { move });
                 }
                 else
                 {
-                    var path = FindPath(temp, step + 1);
+                    var path = FindPath(temp, length + 1);
                     if(path != null)
                     {
-                        var list = path as IList<Pouring>;
-                        list.Add(move);
-                        return list;
+                        if(shortestPath == null)
+                        {
+                            shortestPath = path.Append(move);
+                        }
+                        else if (shortestPath.Count() > path.Count() + 1)
+                        {
+                            shortestPath = path.Append(move);
+                        }
                     }
                 }
             }
 
-            return null;
+            return shortestPath;
         }
 
         private VialSet AppliMove(VialSet set, Pouring pouring)
