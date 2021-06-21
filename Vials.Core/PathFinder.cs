@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Vials.Shared;
 
 namespace Vials.Core
@@ -10,17 +12,17 @@ namespace Vials.Core
     {
         private readonly ICloner _cloner;
         private readonly IDictionary<int, int> setRegister = new Dictionary<int, int>();
-        private int _maxPathLength = 200;
+        private int _maxPathLength = 50;
 
         public PathFinder(ICloner cloner)
         {
             _cloner = cloner;
         }
 
-        public IEnumerable<Pouring> FindPath(VialSet set)
+        public async Task<IEnumerable<Pouring>> FindPath(VialSet set, CancellationToken token)
         {
-            var path = FindPath(set, 0);
-            if(path != null)
+            var path = await FindPath(set, 0, token);
+            if (path != null)
             {
                 return path.Reverse();
             }
@@ -28,11 +30,16 @@ namespace Vials.Core
             return null;
         }
 
-        public IEnumerable<Pouring> FindPath(VialSet set, int length)
+        public async Task<IEnumerable<Pouring>> FindPath(VialSet set, int length, CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+            {
+                return null;
+            }
+
             IEnumerable<Pouring> shortestPath = null;
 
-            if(length >= _maxPathLength)
+            if (length >= _maxPathLength)
             {
                 return null;
             }
@@ -56,10 +63,10 @@ namespace Vials.Core
                 }
                 else
                 {
-                    var path = FindPath(temp, length + 1);
-                    if(path != null)
+                    var path = await FindPath(temp, length + 1, token);
+                    if (path != null)
                     {
-                        if(shortestPath == null)
+                        if (shortestPath == null)
                         {
                             shortestPath = path.Append(move);
                         }
