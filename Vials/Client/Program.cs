@@ -30,6 +30,7 @@ namespace Vials.Client
             builder.Services.AddScoped<IVialSetHandler, VialSetHandler>();
             builder.Services.AddScoped<IVialSetHistory, VialSetHistory>();
             builder.Services.AddScoped<Vials.Shared.Service.IGameService, Vials.Shared.Service.GameService>();
+            builder.Services.AddScoped<Vials.Shared.Service.IPathService, Vials.Shared.Service.PathService>();
         }
     }
 }

@@ -19,6 +19,16 @@ namespace Vials.Shared
             currentIndex++;
         }
 
+        public void SetOngoingPath(IEnumerable<Pouring> path)
+        {
+            ClearUpcoming();
+
+            foreach (var p in path)
+            {
+                _pourings.Add(p);
+            }
+        }
+
         public VialSet Undo(VialSet set)
         {
             if (CanUndo)
@@ -50,6 +60,8 @@ namespace Vials.Shared
             _pourings.Clear();
             currentIndex = -1;
         }
+
+        public IList<Pouring> ToList() => _pourings;
 
         private void ClearUpcoming()
         {

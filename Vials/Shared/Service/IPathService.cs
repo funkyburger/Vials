@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 namespace Vials.Shared.Service
 {
     // TODO move to client
-    public interface IGameService
+    public interface IPathService
     {
-        Task<VialSet> GetNewGame();
+        Task<IEnumerable<Pouring>> FetchPath(VialSet set);
     }
 }

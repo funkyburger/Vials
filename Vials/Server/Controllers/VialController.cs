@@ -24,7 +24,7 @@ namespace Vials.Server.Controllers
         [Route("new")]
         public VialSet New()
         {
-            return _setGenerator.Generate(12, 2);
+            return _setGenerator.Generate(4, 2);
         }
     }
 }

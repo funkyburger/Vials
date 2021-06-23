@@ -13,6 +13,9 @@ namespace Vials.Core
         public static void Install(IServiceCollection serviceCollection, IConfiguration configurationRoot)
         {
             serviceCollection.AddScoped<ISetGenerator, SetGenerator>();
+            serviceCollection.AddScoped<IPathFinder, PathFinder>();
+
+            serviceCollection.AddScoped<Shared.ICloner, Shared.Cloner>();
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Vials.Shared.Components
         void AddEventHandler(IEventHandler eventHandler);
         bool CanUndo { get; set; }
         bool CanRedo { get; set; }
+        bool CanFindPath { get; set; }
     }
 }

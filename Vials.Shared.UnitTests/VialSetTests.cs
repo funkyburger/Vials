@@ -62,5 +62,35 @@ namespace Vials.Shared.UnitTests
 
             set.IsComplete.ShouldBeFalse();
         }
+
+        [TestMethod]
+        public void HashShouldBeSameForSameSet()
+        {
+            var set = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Red, Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Blue, Color.Blue }),
+                    new Vial(new Color[] { Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green, Color.Green }),
+                    new Vial(),
+                    new Vial()
+                }
+            };
+
+            var set2 = new VialSet()
+            {
+                Vials = new Vial[] {
+                    new Vial(new Color[] { Color.Red, Color.Red, Color.Red, Color.Red }),
+                    new Vial(new Color[] { Color.Blue, Color.Yellow, Color.Blue, Color.Blue }),
+                    new Vial(new Color[] { Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow }),
+                    new Vial(new Color[] { Color.Green, Color.Green, Color.Green, Color.Green }),
+                    new Vial(),
+                    new Vial()
+                }
+            };
+
+            set.GetHashCode().ShouldBe(set2.GetHashCode());
+        }
     }
 }
