@@ -19,6 +19,16 @@ namespace Vials.Shared
             currentIndex++;
         }
 
+        public void SetOngoingPath(IEnumerable<Pouring> path)
+        {
+            Console.WriteLine("SetOngoingPath");
+
+            if (path == null)
+                Console.WriteLine("path is null");
+
+            throw new NotImplementedException();
+        }
+
         public VialSet Undo(VialSet set)
         {
             if (CanUndo)

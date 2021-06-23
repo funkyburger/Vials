@@ -7,15 +7,13 @@ namespace Vials.Shared
 {
     public class Pouring
     {
-        public int From { get; private set; }
-        public int To { get; private set; }
-        public int Quantity { get; private set; }
+        public int From { get; set; }
+        public int To { get; set; }
+        public int Quantity { get; set; }
 
-        public Pouring(int from, int to, int quantity = 1)
+        public Pouring()
         {
-            From = from;
-            To = to;
-            Quantity = quantity;
+            Quantity = 1;
         }
 
         public void Increment()

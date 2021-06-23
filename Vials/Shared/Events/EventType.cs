@@ -10,6 +10,7 @@ namespace Vials.Shared.Events
         MoveWasMade,
         VialWasClicked,
         Redo,
-        New
+        New,
+        PathFindingRequested
     }
 }

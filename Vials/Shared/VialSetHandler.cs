@@ -65,7 +65,10 @@ namespace Vials.Shared
 
                 if(set.LastAppliedPouring == null)
                 {
-                    set.LastAppliedPouring = new Pouring(indexFrom, indexTo);
+                    set.LastAppliedPouring = new Pouring() { 
+                        From = indexFrom,
+                        To = indexTo
+                    };
                 }
                 else
                 {

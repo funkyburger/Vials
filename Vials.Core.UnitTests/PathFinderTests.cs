@@ -43,7 +43,7 @@ namespace Vials.Core.UnitTests
         public async Task HarderFinding()
         {
             var source = new CancellationTokenSource();
-            source.CancelAfter(60000);
+            source.CancelAfter(120000);
 
             var set = new VialSet()
             {

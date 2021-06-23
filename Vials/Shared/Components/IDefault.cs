@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Vials.Shared.Components
 {
@@ -10,5 +11,6 @@ namespace Vials.Shared.Components
         void Redo();
         void New();
         void MoveWasMade(Pouring pouring);
+        Task FindPath();
     }
 }

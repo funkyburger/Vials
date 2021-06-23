@@ -25,11 +25,19 @@ namespace Vials.Shared.UnitTests
             };
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring() { 
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             set.ContentEquals(new VialSet()
             {
@@ -93,11 +101,20 @@ namespace Vials.Shared.UnitTests
             };
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             set = history.Undo(set);
             set = history.Undo(set);
@@ -154,17 +171,30 @@ namespace Vials.Shared.UnitTests
             };
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             set = history.Undo(set);
             set = history.Undo(set);
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(0).Pop());
-            history.RegisterMove(new Pouring(0, 1));
+            history.RegisterMove(new Pouring()
+            {
+                From = 0,
+                To = 1
+            });
 
             set.ContentEquals(new VialSet()
             {
@@ -204,11 +234,20 @@ namespace Vials.Shared.UnitTests
             };
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             set.ContentEquals(new VialSet()
             {
@@ -233,7 +272,11 @@ namespace Vials.Shared.UnitTests
             }).ShouldBeTrue();
 
             set.Vials.ElementAt(2).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
 
             set.ContentEquals(new VialSet()
             {
@@ -287,13 +330,22 @@ namespace Vials.Shared.UnitTests
             history.CanUndo.ShouldBeFalse();
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             history.CanUndo.ShouldBeTrue();
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             history.CanUndo.ShouldBeTrue();
 
@@ -324,13 +376,22 @@ namespace Vials.Shared.UnitTests
             history.CanRedo.ShouldBeFalse();
 
             set.Vials.ElementAt(0).Stack(set.Vials.ElementAt(1).Pop());
-            history.RegisterMove(new Pouring(1, 0));
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 0
+            });
 
             history.CanRedo.ShouldBeFalse();
 
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
             set.Vials.ElementAt(1).Stack(set.Vials.ElementAt(2).Pop());
-            history.RegisterMove(new Pouring(2, 1, 2));
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 1,
+                Quantity = 2
+            });
 
             history.CanRedo.ShouldBeFalse();
 

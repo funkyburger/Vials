@@ -38,6 +38,8 @@ namespace Vials.Client.CodeBehind
             }
         }
 
+        public bool CanFindPath { get; set; }
+
         protected void New(MouseEventArgs e)
         {
             LaunchEvent(EventType.New);
@@ -51,6 +53,11 @@ namespace Vials.Client.CodeBehind
         protected void Redo(MouseEventArgs e)
         {
             LaunchEvent(EventType.Redo);
+        }
+
+        protected void FindPath(MouseEventArgs e)
+        {
+            LaunchEvent(EventType.PathFindingRequested);
         }
     }
 }

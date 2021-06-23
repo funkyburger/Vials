@@ -113,7 +113,11 @@ namespace Vials.Core
                     var pouringCount = GetPouringCount(set.Vials.ElementAt(i), set.Vials.ElementAt(j));
                     if(pouringCount > 0)
                     {
-                        yield return new Pouring(i, j, pouringCount);
+                        yield return new Pouring() { 
+                            From = i,
+                            To = j,
+                            Quantity = pouringCount
+                        };
                     }
                 }
             }
