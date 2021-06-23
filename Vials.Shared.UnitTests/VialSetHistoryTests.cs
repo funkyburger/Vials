@@ -407,5 +407,118 @@ namespace Vials.Shared.UnitTests
             history.Redo(set);
             history.CanRedo.ShouldBeFalse();
         }
+
+        [TestMethod]
+        public void SetsOngoingPath()
+        {
+            var history = new VialSetHistory();
+            
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.CanRedo.ShouldBeFalse();
+
+            history.SetOngoingPath(new Pouring[] {
+                new Pouring() { From = 0, To = 2, Quantity = 2 },
+                new Pouring() { From = 2, To = 1, Quantity = 3 }
+            });
+
+            history.CanRedo.ShouldBeTrue();
+
+            var list = history.ToList();
+
+            list.Count.ShouldBe(4);
+
+            list[0].From.ShouldBe(1);
+            list[0].To.ShouldBe(2);
+            list[0].Quantity.ShouldBe(1);
+
+            list[1].From.ShouldBe(2);
+            list[1].To.ShouldBe(0);
+            list[1].Quantity.ShouldBe(1);
+
+            list[2].From.ShouldBe(0);
+            list[2].To.ShouldBe(2);
+            list[2].Quantity.ShouldBe(2);
+
+            list[3].From.ShouldBe(2);
+            list[3].To.ShouldBe(1);
+            list[3].Quantity.ShouldBe(3);
+        }
+
+        [TestMethod]
+        public void SetsOngoingPathWillOverwritePreviousPath()
+        {
+            var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.Undo(set);
+            history.Undo(set);
+
+            history.SetOngoingPath(new Pouring[] {
+                new Pouring() { From = 0, To = 2, Quantity = 2 },
+                new Pouring() { From = 2, To = 1, Quantity = 3 }
+            });
+
+            history.CanRedo.ShouldBeTrue();
+
+            var list = history.ToList();
+
+            list.Count.ShouldBe(4);
+
+            list[0].From.ShouldBe(1);
+            list[0].To.ShouldBe(2);
+            list[0].Quantity.ShouldBe(1);
+
+            list[1].From.ShouldBe(2);
+            list[1].To.ShouldBe(0);
+            list[1].Quantity.ShouldBe(1);
+
+            list[2].From.ShouldBe(0);
+            list[2].To.ShouldBe(2);
+            list[2].Quantity.ShouldBe(2);
+
+            list[3].From.ShouldBe(2);
+            list[3].To.ShouldBe(1);
+            list[3].Quantity.ShouldBe(3);
+        }
     }
 }

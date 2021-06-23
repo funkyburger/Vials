@@ -21,12 +21,12 @@ namespace Vials.Shared
 
         public void SetOngoingPath(IEnumerable<Pouring> path)
         {
-            Console.WriteLine("SetOngoingPath");
+            ClearUpcoming();
 
-            if (path == null)
-                Console.WriteLine("path is null");
-
-            throw new NotImplementedException();
+            foreach (var p in path)
+            {
+                _pourings.Add(p);
+            }
         }
 
         public VialSet Undo(VialSet set)
@@ -60,6 +60,8 @@ namespace Vials.Shared
             _pourings.Clear();
             currentIndex = -1;
         }
+
+        public IList<Pouring> ToList() => _pourings;
 
         private void ClearUpcoming()
         {
