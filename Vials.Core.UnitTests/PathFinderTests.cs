@@ -40,6 +40,7 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
+        [Ignore]
         [TestMethod]
         public async Task HarderFinding()
         {
@@ -86,6 +87,7 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
+        [Ignore]
         [TestMethod]
         public async Task Finding8()
         {
@@ -99,6 +101,7 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
+        [Ignore]
         [TestMethod]
         public async Task Finding10()
         {
