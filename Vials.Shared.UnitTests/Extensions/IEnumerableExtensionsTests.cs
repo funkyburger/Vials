@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vials.Core;
 using Vials.Shared.Extensions;
 
 namespace Vials.Shared.UnitTests.Extensions

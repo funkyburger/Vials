@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Vials.Shared.Objects;
 
-namespace Vials.Shared
+namespace Vials.Shared.Components
 {
-    public interface IVialSetHandler
+    public interface IVialSetView
     {
-        VialSet Select(VialSet set, int index);
+        VialSet Set { get; set; }
     }
 }

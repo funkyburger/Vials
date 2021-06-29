@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Shouldly;
+using Vials.Shared.Objects;
 
 namespace Vials.Shared.UnitTests
 {

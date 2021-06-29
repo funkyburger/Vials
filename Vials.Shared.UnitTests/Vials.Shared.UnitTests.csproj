@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vials.Core\Vials.Core.csproj" />
-    <ProjectReference Include="..\Vials\Client\Vials.Client.csproj" />
     <ProjectReference Include="..\Vials\Shared\Vials.Shared.csproj" />
   </ItemGroup>
 

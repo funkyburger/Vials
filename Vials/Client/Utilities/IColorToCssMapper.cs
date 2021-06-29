@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Vials.Shared.Objects;
 
-namespace Vials.Shared
+namespace Vials.Client.Utilities
 {
-    public interface IVialSetHandler
+    public interface IColorToCssMapper
     {
-        VialSet Select(VialSet set, int index);
+        string Map(int level, Color color);
     }
 }

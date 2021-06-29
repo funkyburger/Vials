@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vials.Client.Events;
 using Vials.Shared.Components;
-using Vials.Shared.Events;
 
 namespace Vials.Client.CodeBehind
 {
