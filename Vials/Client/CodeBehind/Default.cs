@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Vials.Client.Shared;
+using Vials.Client.Events;
+using Vials.Client.Service;
 using Vials.Shared;
 using Vials.Shared.Components;
-using Vials.Shared.Events;
-using Vials.Shared.Service;
+using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
 {
@@ -19,6 +19,8 @@ namespace Vials.Client.CodeBehind
         protected IVialSetHistory VialSetHistory { get; set; }
         [Inject]
         protected IGameService GameService { get; set; }
+        [Inject]
+        protected IPathService PathService { get; set; }
 
         protected VialSetView vialSetView;
 
@@ -36,6 +38,7 @@ namespace Vials.Client.CodeBehind
             }
 
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
+            controls.CanFindPath = true;
             RefreshControls();
         }
 
@@ -49,6 +52,7 @@ namespace Vials.Client.CodeBehind
             }
 
             vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
+            controls.CanFindPath = true;
             RefreshControls();
         }
 
@@ -60,6 +64,7 @@ namespace Vials.Client.CodeBehind
         public void MoveWasMade(Pouring pouring)
         {
             VialSetHistory.RegisterMove(pouring);
+            controls.CanFindPath = true;
             RefreshControls();
         }
 
@@ -67,6 +72,18 @@ namespace Vials.Client.CodeBehind
         {
             vialSetView.Set = await GameService.GetNewGame();
             VialSetHistory.Reset();
+            controls.CanFindPath = true;
+
+            RefreshControls();
+        }
+
+        public async Task FindPath()
+        {
+            controls.CanFindPath = false;
+            var path = await PathService.FetchPath(vialSetView.Set);
+
+            VialSetHistory.SetOngoingPath(path);
+            controls.CanFindPath = true;
 
             RefreshControls();
         }
@@ -74,6 +91,7 @@ namespace Vials.Client.CodeBehind
         protected override async void OnAfterRender(bool firstRender)
         {
             controls.AddEventHandler(new ControlEventHandler(this));
+            controls.AddEventHandler(new PathFindingRequestedHandler(this));
 
             await NewGame();
         }

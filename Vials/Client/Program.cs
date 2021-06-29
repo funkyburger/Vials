@@ -26,10 +26,11 @@ namespace Vials.Client
         private static void ConfigureServices(WebAssemblyHostBuilder builder)
         {
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddScoped<IColorToCssMapper, ColorToCssMapper>();
+            builder.Services.AddScoped<Utilities.IColorToCssMapper, Utilities.ColorToCssMapper>();
             builder.Services.AddScoped<IVialSetHandler, VialSetHandler>();
             builder.Services.AddScoped<IVialSetHistory, VialSetHistory>();
-            builder.Services.AddScoped<Vials.Shared.Service.IGameService, Vials.Shared.Service.GameService>();
+            builder.Services.AddScoped<Service.IGameService, Service.GameService>();
+            builder.Services.AddScoped<Service.IPathService, Service.PathService>();
         }
     }
 }

@@ -9,8 +9,8 @@
 /Vials/Server/obj
 /Vials.Shared.UnitTests/obj
 /Vials.Shared.UnitTests/bin
-/Vials.Core.UnitTests/obj
-/Vials.Core.UnitTests/bin
+/Vials.Server.UnitTests/obj
+/Vials.Server.UnitTests/bin
 /Vials/Shared/obj
 /Vials/Shared/bin
 /Vials.Core/bin

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Vials.Shared.Objects;
 
 namespace Vials.Shared
 {
@@ -17,6 +18,16 @@ namespace Vials.Shared
 
             _pourings.Add(pourings);
             currentIndex++;
+        }
+
+        public void SetOngoingPath(IEnumerable<Pouring> path)
+        {
+            ClearUpcoming();
+
+            foreach (var p in path)
+            {
+                _pourings.Add(p);
+            }
         }
 
         public VialSet Undo(VialSet set)
@@ -50,6 +61,8 @@ namespace Vials.Shared
             _pourings.Clear();
             currentIndex = -1;
         }
+
+        public IList<Pouring> ToList() => _pourings;
 
         private void ClearUpcoming()
         {

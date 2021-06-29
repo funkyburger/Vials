@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vials.Shared.Extensions;
+using Vials.Shared.Objects;
 
 namespace Vials.Shared
 {
@@ -65,7 +66,10 @@ namespace Vials.Shared
 
                 if(set.LastAppliedPouring == null)
                 {
-                    set.LastAppliedPouring = new Pouring(indexFrom, indexTo);
+                    set.LastAppliedPouring = new Pouring() { 
+                        From = indexFrom,
+                        To = indexTo
+                    };
                 }
                 else
                 {

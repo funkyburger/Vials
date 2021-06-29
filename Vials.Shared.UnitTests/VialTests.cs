@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Shouldly;
 using System.Linq;
+using Vials.Shared.Objects;
 
 namespace Vials.Shared.UnitTests
 {
@@ -163,6 +164,15 @@ namespace Vials.Shared.UnitTests
             }
 
             exceptionThrown.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void HashShouldBeSameForSameSet()
+        {
+            var vial = new Vial(new Color[] { Color.Red, Color.Yellow, Color.Red, Color.Green });
+            var vial2 = new Vial(new Color[] { Color.Red, Color.Yellow, Color.Red, Color.Green });
+
+            vial.GetHashCode().ShouldBe(vial2.GetHashCode());
         }
     }
 }
