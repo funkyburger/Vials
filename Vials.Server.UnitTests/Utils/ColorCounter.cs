@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vials.Shared.Objects;
 
-namespace Vials.Core.UnitTests.Utils
+namespace Vials.Server.UnitTests.Utils
 {
     public class ColorCounter : IEnumerable<KeyValuePair<Color, int>>
     {

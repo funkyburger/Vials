@@ -1,18 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vials.Core.UnitTests.Utils;
+using Vials.Server.UnitTests.Utils;
+using Vials.Server.Utilities;
 using Vials.Shared.Objects;
 
-namespace Vials.Core.UnitTests
+namespace Vials.Server.UnitTests
 {
-    [TestClass]
     public class SetGeneratorTests
     {
-        [TestMethod]
+        [Test]
         public void SetIsGenerated()
         {
             var generator = new SetGenerator();
@@ -31,7 +31,7 @@ namespace Vials.Core.UnitTests
             set.Vials.TakeLast(2).First().Colors.ShouldBeEmpty();
         }
 
-        [TestMethod]
+        [Test]
         public void GeneratorCanDoUpToTwelveColors()
         {
             var generator = new SetGenerator();

@@ -25,7 +25,10 @@ namespace Vials.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            CoreInstaller.Install(services, Configuration);
+            services.AddScoped<Utilities.ISetGenerator, Utilities.SetGenerator>();
+            services.AddScoped<Utilities.IPathFinder, Utilities.PathFinder>();
+
+            services.AddScoped<Shared.ICloner, Shared.Cloner>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

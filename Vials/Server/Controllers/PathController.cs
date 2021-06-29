@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Vials.Core;
+using Vials.Server.Utilities;
 using Vials.Shared.Objects;
 
 namespace Vials.Server.Controllers

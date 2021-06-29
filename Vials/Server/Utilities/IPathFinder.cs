@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Vials.Shared.Objects;
 
-namespace Vials.Core
+namespace Vials.Server.Utilities
 {
     public interface IPathFinder
     {

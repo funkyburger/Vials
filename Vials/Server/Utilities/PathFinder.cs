@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Vials.Shared;
 using Vials.Shared.Objects;
 
-namespace Vials.Core
+namespace Vials.Server.Utilities
 {
     public class PathFinder : IPathFinder
     {

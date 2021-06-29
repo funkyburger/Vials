@@ -4,7 +4,7 @@ using System.Text;
 using Vials.Shared;
 using Vials.Shared.Objects;
 
-namespace Vials.Core
+namespace Vials.Server.Utilities
 {
     public interface ISetGenerator
     {

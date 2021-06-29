@@ -1,21 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Shouldly;
+﻿using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Vials.Core.UnitTests.Utils;
-using Vials.Shared;
+using NUnit.Framework;
 using Vials.Shared.Objects;
+using Vials.Server.Utilities;
+using Vials.Shared;
 
-namespace Vials.Core.UnitTests
+namespace Vials.Server.UnitTests
 {
-    [TestClass]
     public class PathFinderTests
     {
-        [TestMethod]
+        [Test]
         public async Task EasyFinding()
         {
             var source = new CancellationTokenSource();
@@ -40,8 +39,8 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
-        [Ignore]
-        [TestMethod]
+        [Ignore("Slows down test process dramatically.")]
+        [Test]
         public async Task HarderFinding()
         {
             var source = new CancellationTokenSource();
@@ -74,7 +73,7 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
-        [TestMethod]
+        [Test]
         public async Task Finding6()
         {
             var start = DateTime.Now;
@@ -87,8 +86,8 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
-        [Ignore]
-        [TestMethod]
+        [Ignore("Slows down test process dramatically.")]
+        [Test]
         public async Task Finding8()
         {
             var start = DateTime.Now;
@@ -101,8 +100,8 @@ namespace Vials.Core.UnitTests
             path.ShouldNotBeEmpty();
         }
 
-        [Ignore]
-        [TestMethod]
+        [Ignore("Slows down test process dramatically.")]
+        [Test]
         public async Task Finding10()
         {
             var start = DateTime.Now;
