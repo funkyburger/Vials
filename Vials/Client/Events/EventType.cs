@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vials.Shared.Events
+namespace Vials.Client.Events
 {
     public enum EventType
     {

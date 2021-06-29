@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vials.Client.Events;
 using Vials.Shared;
 using Vials.Shared.Components;
-using Vials.Shared.Events;
 using Vials.Shared.Objects;
 
-namespace Vials.Shared.Events
+namespace Vials.Client.Events
 {
     public class VialClickedHandler : IEventHandler
     {

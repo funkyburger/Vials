@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vials.Shared.Components;
 
-namespace Vials.Shared.Events
+namespace Vials.Client.Events
 {
     public class PathFindingRequestedHandler : IEventHandler
     {

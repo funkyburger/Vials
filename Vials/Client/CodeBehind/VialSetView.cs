@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Vials.Client.Shared;
+using Vials.Client.Events;
 using Vials.Shared;
 using Vials.Shared.Objects;
 using Vials.Shared.Components;
-using Vials.Shared.Events;
 
 namespace Vials.Client.CodeBehind
 {
