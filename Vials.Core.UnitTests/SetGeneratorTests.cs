@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vials.Core.UnitTests.Utils;
-using Vials.Shared;
+using Vials.Shared.Objects;
 
 namespace Vials.Core.UnitTests
 {

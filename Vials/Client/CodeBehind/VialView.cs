@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Events;
+using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
 {

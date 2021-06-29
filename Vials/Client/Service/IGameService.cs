@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Vials.Shared.Objects;
 
-namespace Vials.Shared.Service
+namespace Vials.Client.Service
 {
-    // TODO move to client
     public interface IGameService
     {
         Task<VialSet> GetNewGame();

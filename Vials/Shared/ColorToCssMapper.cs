@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Vials.Shared.Objects;
 
 namespace Vials.Shared
 {
+    // TODO : move to client
     public class ColorToCssMapper : IColorToCssMapper
     {
         public string Map(int level, Color color)

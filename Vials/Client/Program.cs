@@ -29,8 +29,8 @@ namespace Vials.Client
             builder.Services.AddScoped<IColorToCssMapper, ColorToCssMapper>();
             builder.Services.AddScoped<IVialSetHandler, VialSetHandler>();
             builder.Services.AddScoped<IVialSetHistory, VialSetHistory>();
-            builder.Services.AddScoped<Vials.Shared.Service.IGameService, Vials.Shared.Service.GameService>();
-            builder.Services.AddScoped<Vials.Shared.Service.IPathService, Vials.Shared.Service.PathService>();
+            builder.Services.AddScoped<Service.IGameService, Service.GameService>();
+            builder.Services.AddScoped<Service.IPathService, Service.PathService>();
         }
     }
 }

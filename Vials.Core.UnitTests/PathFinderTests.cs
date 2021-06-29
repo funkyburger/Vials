@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Vials.Core.UnitTests.Utils;
 using Vials.Shared;
+using Vials.Shared.Objects;
 
 namespace Vials.Core.UnitTests
 {

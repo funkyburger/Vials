@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Vials.Client.Shared;
+using Vials.Client.Service;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Events;
-using Vials.Shared.Service;
+using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
 {

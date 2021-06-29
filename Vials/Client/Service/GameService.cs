@@ -4,10 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Vials.Shared.Objects;
 
-namespace Vials.Shared.Service
+namespace Vials.Client.Service
 {
-    // TODO move to client
     public class GameService : IGameService
     {
         private readonly HttpClient _http;

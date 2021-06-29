@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vials.Shared.Extensions;
-using Vials.Shared;
+using Vials.Shared.Objects;
 
 namespace Vials.Core
 {
