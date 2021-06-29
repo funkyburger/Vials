@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Client.Events;
-using Vials.Shared;
+using Vials.Client.Utilities;
 using Vials.Shared.Components;
 using Vials.Shared.Objects;
 
