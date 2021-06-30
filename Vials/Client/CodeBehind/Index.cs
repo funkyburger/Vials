@@ -13,7 +13,7 @@ using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
 {
-    public class Default : VialComponentBase, IDefault
+    public class Index : VialComponentBase, IIndex
     {
         [Inject]
         protected IVialSetHistory VialSetHistory { get; set; }

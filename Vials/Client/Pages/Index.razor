@@ -1,7 +1,6 @@
 ﻿@page "/"
+@inherits CodeBehind.Index
 
-<h1>Hello, world!</h1>
+<Controls @ref="controls"/>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<VialSetView @ref="vialSetView" MoveWasMadeHandler="MoveWasMadeHandler" />

@@ -7,9 +7,9 @@ namespace Vials.Client.Events
 {
     public class PathFindingRequestedHandler : IEventHandler
     {
-        private IDefault _default;
+        private IIndex _default;
 
-        public PathFindingRequestedHandler(IDefault def)
+        public PathFindingRequestedHandler(IIndex def)
         {
             _default = def;
         }

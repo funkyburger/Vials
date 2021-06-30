@@ -7,9 +7,9 @@ namespace Vials.Client.Events
 {
     public class MoveWasMadeHandler : IEventHandler
     {
-        private readonly IDefault _def;
+        private readonly IIndex _def;
 
-        public MoveWasMadeHandler(IDefault def)
+        public MoveWasMadeHandler(IIndex def)
         {
             _def = def;
         }

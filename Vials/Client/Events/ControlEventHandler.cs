@@ -7,9 +7,9 @@ namespace Vials.Client.Events
 {
     public class ControlEventHandler : IEventHandler
     {
-        private readonly IDefault Def;
+        private readonly IIndex Def;
 
-        public ControlEventHandler(IDefault def)
+        public ControlEventHandler(IIndex def)
         {
             Def = def;
         }
