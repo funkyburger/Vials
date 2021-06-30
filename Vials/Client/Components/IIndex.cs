@@ -6,7 +6,7 @@ using Vials.Shared.Objects;
 
 namespace Vials.Shared.Components
 {
-    public interface IDefault
+    public interface IIndex
     {
         void Undo();
         void Redo();
