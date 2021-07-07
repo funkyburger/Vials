@@ -1,0 +1,14 @@
+﻿@inherits CodeBehind.CookieDialog
+
+@if (ShouldBeShown)
+{
+    <div class="alert alert-dismissible text-center">
+        <div>
+            We use cookies to save your ongoing game for later.
+
+            <button type="button" class="btn btn-primary btn-sm" @onclick="ConsentCookies">
+                I agree
+            </button>
+        </div>
+    </div>
+}

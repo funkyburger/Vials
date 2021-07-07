@@ -98,8 +98,6 @@ namespace Vials.Client.CodeBehind
 
         private void RefreshControls()
         {
-            Console.WriteLine("RefreshControls()");
-
             controls.CanUndo = VialSetHistory.CanUndo;
             controls.CanRedo = VialSetHistory.CanRedo;
         }
