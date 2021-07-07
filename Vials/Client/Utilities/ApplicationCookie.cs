@@ -7,6 +7,5 @@ namespace Vials.Client.Utilities
 {
     public class ApplicationCookie
     {
-        public bool HasConsented { get; set; }
     }
 }
