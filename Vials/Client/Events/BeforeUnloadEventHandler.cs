@@ -15,7 +15,7 @@ namespace Vials.Client.Events
             _cookieStore = cookieStore;
         }
 
-        public void Handle(object sender, EventType eventType)
+        public async Task Handle(object sender, EventType eventType)
         {
             //_cookieStore.Store(new ApplicationCookie());
         }

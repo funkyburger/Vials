@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Components;
 
 namespace Vials.Client.Events
@@ -14,14 +15,14 @@ namespace Vials.Client.Events
             _default = def;
         }
 
-        public void Handle(object sender, EventType eventType)
+        public async Task Handle(object sender, EventType eventType)
         {
             if (eventType != EventType.PathFindingRequested)
             {
                 return;
             }
 
-            _default.FindPath();
+            await _default.FindPath();
         }
     }
 }

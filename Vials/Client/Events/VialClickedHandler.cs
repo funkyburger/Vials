@@ -24,7 +24,7 @@ namespace Vials.Client.Events
             _eventHandler = eventHandler;
         }
 
-        public void Handle(object sender, EventType eventType)
+        public async Task Handle(object sender, EventType eventType)
         {
             if(eventType != EventType.VialWasClicked)
             {
@@ -43,7 +43,7 @@ namespace Vials.Client.Events
 
             if (View.Set.HasChanged)
             {
-                _eventHandler.Handle(this, EventType.MoveWasMade);
+                await _eventHandler.Handle(this, EventType.MoveWasMade);
             }
         }
     }

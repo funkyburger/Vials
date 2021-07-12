@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Components;
 
 namespace Vials.Client.Events
@@ -14,16 +15,17 @@ namespace Vials.Client.Events
             _def = def;
         }
 
-        public void Handle(object sender, EventType eventType)
+        public Task Handle(object sender, EventType eventType)
         {
             if (eventType != EventType.MoveWasMade)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var vialClickedHandler = sender as VialClickedHandler;
 
             _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
+            return Task.CompletedTask;
         }
     }
 }
