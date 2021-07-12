@@ -7,13 +7,14 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Vials.Client.Events;
 using Vials.Client.Service;
+using Vials.Client.Utilities;
 using Vials.Shared;
 using Vials.Shared.Components;
 using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
 {
-    public class Index : VialComponentBase, IIndex
+    public class Index : PageComponentBase, IIndex
     {
         [Inject]
         protected IVialSetHistory VialSetHistory { get; set; }
@@ -21,6 +22,8 @@ namespace Vials.Client.CodeBehind
         protected IGameService GameService { get; set; }
         [Inject]
         protected IPathService PathService { get; set; }
+        [Inject]
+        protected ICookieStore CookieStore { get; set; }
 
         protected VialSetView vialSetView;
 
@@ -92,6 +95,8 @@ namespace Vials.Client.CodeBehind
         {
             controls.AddEventHandler(new ControlEventHandler(this));
             controls.AddEventHandler(new PathFindingRequestedHandler(this));
+
+            await AddBeforeUnloadEvent(new BeforeUnloadEventHandler(CookieStore));
 
             await NewGame();
         }
