@@ -23,13 +23,15 @@ namespace Vials.Client.CodeBehind
         [Inject]
         protected IPathService PathService { get; set; }
         [Inject]
-        protected ICookieStore CookieStore { get; set; }
+        protected ICookieService CookieService { get; set; }
 
         protected VialSetView vialSetView;
 
         protected IControls controls;
 
         public IEventHandler MoveWasMadeHandler => new MoveWasMadeHandler(this);
+
+        public VialSet VialSet => vialSetView.Set;
 
         public void Undo()
         {
@@ -80,6 +82,17 @@ namespace Vials.Client.CodeBehind
             RefreshControls();
         }
 
+        public Task RestoreGame(VialSet set)
+        {
+            vialSetView.Set = set;
+            // TODO restore that too
+            VialSetHistory.Reset();
+            controls.CanFindPath = true;
+
+            RefreshControls();
+            return Task.CompletedTask;
+        }
+
         public async Task FindPath()
         {
             controls.CanFindPath = false;
@@ -96,7 +109,18 @@ namespace Vials.Client.CodeBehind
             controls.AddEventHandler(new ControlEventHandler(this));
             controls.AddEventHandler(new PathFindingRequestedHandler(this));
 
-            await AddBeforeUnloadEvent(new BeforeUnloadEventHandler(CookieStore));
+            await AddBeforeUnloadEvent(new BeforeUnloadEventHandler(CookieService, this));
+
+            if (await CookieService.DidUserConsent())
+            {
+                var cookie = await CookieService.GetCookie();
+
+                if(cookie != null)
+                {
+                    await RestoreGame(cookie.VialSet);
+                    return;
+                }
+            }
 
             await NewGame();
         }

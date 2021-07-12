@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,11 @@ namespace Vials.Shared.Objects
                 }
             } 
         }
+        [JsonIgnore]
         public bool IsSelected { get; set; }
+        [JsonIgnore]
         public bool IsOption { get; set; }
-
+        [JsonIgnore]
         public Color TopColor { 
             get 
             { 
@@ -41,10 +44,11 @@ namespace Vials.Shared.Objects
                 return _colors.Last();
             }
         }
-
+        [JsonIgnore]
         public bool IsFull => _colors.Count() >= Length;
+        [JsonIgnore]
         public bool IsEmpty => !_colors.Any();
-
+        [JsonIgnore]
         public bool IsComplete
         {
             get

@@ -13,5 +13,6 @@ namespace Vials.Shared.Components
         void New();
         void MoveWasMade(Pouring pouring);
         Task FindPath();
+        VialSet VialSet { get; }
     }
 }
