@@ -84,6 +84,7 @@ namespace Vials.Client.CodeBehind
 
         public Task RestoreGame(VialSet set)
         {
+            Console.WriteLine("restoring game");
             vialSetView.Set = set;
             // TODO restore that too
             VialSetHistory.Reset();
@@ -115,7 +116,7 @@ namespace Vials.Client.CodeBehind
             {
                 var cookie = await CookieService.GetCookie();
 
-                if(cookie != null)
+                if(cookie != null && cookie.VialSet != null)
                 {
                     await RestoreGame(cookie.VialSet);
                     return;
