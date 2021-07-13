@@ -11,6 +11,7 @@ namespace Vials.Client.Events
         VialWasClicked,
         Redo,
         New,
-        PathFindingRequested
+        PathFindingRequested,
+        BeforeUnload
     }
 }

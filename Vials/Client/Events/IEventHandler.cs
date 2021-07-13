@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Vials.Client.Events
 {
     public interface IEventHandler
     {
-        void Handle(object sender, EventType eventType);
+        Task Handle(object sender, EventType eventType);
     }
 }

@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Components;
 
 namespace Vials.Client.Events
 {
     public class MoveWasMadeHandler : IEventHandler
     {
-        private readonly IDefault _def;
+        private readonly IIndex _index;
 
-        public MoveWasMadeHandler(IDefault def)
+        public MoveWasMadeHandler(IIndex index)
         {
-            _def = def;
+            _index = index;
         }
 
-        public void Handle(object sender, EventType eventType)
+        public Task Handle(object sender, EventType eventType)
         {
             if (eventType != EventType.MoveWasMade)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var vialClickedHandler = sender as VialClickedHandler;
 
-            _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
+            return _index.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
         }
     }
 }

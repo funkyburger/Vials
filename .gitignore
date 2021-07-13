@@ -5,8 +5,11 @@
 /.vs
 /Vials/Client/bin
 /Vials/Client/obj
+/Vials/Client/wwwroot/script/vials.js
 /Vials/Server/bin
 /Vials/Server/obj
+/Vials.Client.UnitTests/obj
+/Vials.Client.UnitTests/bin
 /Vials.Shared.UnitTests/obj
 /Vials.Shared.UnitTests/bin
 /Vials.Server.UnitTests/obj

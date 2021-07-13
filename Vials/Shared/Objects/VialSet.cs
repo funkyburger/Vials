@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Vials.Shared.Objects
 {
     public class VialSet
     {
         public IEnumerable<Vial> Vials { get; set; }
+        [JsonIgnore]
         public bool HasChanged => LastAppliedPouring != null;
+        [JsonIgnore]
         public Pouring LastAppliedPouring { get; set; }
-
+        [JsonIgnore]
         public bool IsComplete 
         { 
             get 

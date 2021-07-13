@@ -19,7 +19,6 @@ namespace Vials.Client.CodeBehind
             }
             set 
             {
-                Console.WriteLine($"can undo : {value}");
                 canUndo = value;
                 StateHasChanged();
             }

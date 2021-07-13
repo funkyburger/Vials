@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Extensions;
 using Vials.Shared.Objects;
 
@@ -520,6 +521,168 @@ namespace Vials.Shared.UnitTests
             list[3].From.ShouldBe(2);
             list[3].To.ShouldBe(1);
             list[3].Quantity.ShouldBe(3);
+        }
+
+        [TestMethod]
+        public async Task HistoryCanBeExported()
+        {
+            var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.Undo(set);
+
+            var export = history.Export();
+            export.Pourings.Count().ShouldBe(4);
+            export.Pourings.First().From.ShouldBe(1);
+            export.Pourings.First().To.ShouldBe(2);
+            export.Pourings.Skip(1).First().From.ShouldBe(2);
+            export.Pourings.Skip(1).First().To.ShouldBe(0);
+            export.Pourings.Skip(2).First().From.ShouldBe(1);
+            export.Pourings.Skip(2).First().To.ShouldBe(2);
+            export.Pourings.Skip(3).First().From.ShouldBe(2);
+            export.Pourings.Skip(3).First().To.ShouldBe(0);
+            export.Current.ShouldBe(2);
+        }
+
+        [TestMethod]
+        public async Task HistoryCanBeImported()
+        {
+            var history = new VialSetHistory();
+            var export = new HistoryExport()
+            {
+                Pourings = new Pouring[] {
+                    new Pouring() { From = 1, To = 2 },
+                    new Pouring() { From = 2, To = 0 },
+                    new Pouring() { From = 1, To = 2, Quantity = 2 },
+                    new Pouring() { From = 2, To = 0, Quantity = 3 }
+                },
+                Current = 2
+            };
+
+            history.Import(export);
+
+            var list = history.ToList();
+            list.Count.ShouldBe(4);
+
+            list[0].From.ShouldBe(1);
+            list[0].To.ShouldBe(2);
+            list[0].Quantity.ShouldBe(1);
+
+            list[1].From.ShouldBe(2);
+            list[1].To.ShouldBe(0);
+            list[1].Quantity.ShouldBe(1);
+
+            list[2].From.ShouldBe(1);
+            list[2].To.ShouldBe(2);
+            list[2].Quantity.ShouldBe(2);
+
+            list[3].From.ShouldBe(2);
+            list[3].To.ShouldBe(0);
+            list[3].Quantity.ShouldBe(3);
+
+            history.CurrentIndex.ShouldBe(2);
+        }
+
+        [TestMethod]
+        public void ImportedOverwritesHistory()
+        {
+            var history = new VialSetHistory();
+            var set = new VialSet()
+            {
+                Vials = new Vial[]
+                {
+                    new Vial(new Color[] { Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Red }),
+                    new Vial(new Color[] { Color.Green, Color.Green }),
+                }
+            };
+            var export = new HistoryExport()
+            {
+                Pourings = new Pouring[] {
+                    new Pouring() { From = 1, To = 0 },
+                    new Pouring() { From = 1, To = 2 },
+                    new Pouring() { From = 0, To = 1, Quantity = 2 },
+                    new Pouring() { From = 2, To = 1, Quantity = 3 }
+                },
+                Current = 1
+            };
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.RegisterMove(new Pouring()
+            {
+                From = 1,
+                To = 2
+            });
+            history.RegisterMove(new Pouring()
+            {
+                From = 2,
+                To = 0
+            });
+
+            history.Undo(set);
+
+            history.Import(export);
+
+            var list = history.ToList();
+            list.Count.ShouldBe(4);
+
+            list[0].From.ShouldBe(1);
+            list[0].To.ShouldBe(0);
+            list[0].Quantity.ShouldBe(1);
+
+            list[1].From.ShouldBe(1);
+            list[1].To.ShouldBe(2);
+            list[1].Quantity.ShouldBe(1);
+
+            list[2].From.ShouldBe(0);
+            list[2].To.ShouldBe(1);
+            list[2].Quantity.ShouldBe(2);
+
+            list[3].From.ShouldBe(2);
+            list[3].To.ShouldBe(1);
+            list[3].Quantity.ShouldBe(3);
+
+            history.CurrentIndex.ShouldBe(1);
         }
     }
 }
