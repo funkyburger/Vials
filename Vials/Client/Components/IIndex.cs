@@ -11,7 +11,7 @@ namespace Vials.Shared.Components
         Task Undo();
         Task Redo();
         Task New();
-        void MoveWasMade(Pouring pouring);
+        Task MoveWasMade(Pouring pouring);
         Task FindPath();
         VialSet VialSet { get; }
         HistoryExport History { get; }

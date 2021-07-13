@@ -24,8 +24,7 @@ namespace Vials.Client.Events
 
             var vialClickedHandler = sender as VialClickedHandler;
 
-            _index.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
-            return Task.CompletedTask;
+            return _index.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
         }
     }
 }

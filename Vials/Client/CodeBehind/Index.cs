@@ -75,8 +75,23 @@ namespace Vials.Client.CodeBehind
             await NewGame();
         }
 
-        public void MoveWasMade(Pouring pouring)
+        public async Task MoveWasMade(Pouring pouring)
         {
+            if (VialSet.IsComplete)
+            {
+                if (await CookieService.DidUserConsent())
+                {
+                    await CookieService.SetCookie(new ApplicationCookie());
+                }
+
+                controls.CanUndo = false;
+                controls.CanRedo = false;
+                controls.CanFindPath = false;
+
+                RefreshControls();
+                return;
+            }
+
             VialSetHistory.RegisterMove(pouring);
             controls.CanFindPath = true;
             RefreshControls();
