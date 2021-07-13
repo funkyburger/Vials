@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Objects;
 
 namespace Vials.Shared
@@ -62,7 +63,31 @@ namespace Vials.Shared
             currentIndex = -1;
         }
 
+        public Task<HistoryExport> Export()
+        {
+            return Task.FromResult(new HistoryExport()
+            {
+                Pourings = _pourings,
+                Current = currentIndex
+            });
+        }
+
+        public Task Import(HistoryExport history)
+        {
+            Reset();
+
+            foreach(var pouring in history.Pourings)
+            {
+                _pourings.Add(pouring);
+            }
+
+            currentIndex = history.Current;
+
+            return Task.CompletedTask;
+        }
+
         public IList<Pouring> ToList() => _pourings;
+        public int CurrentIndex => currentIndex;
 
         private void ClearUpcoming()
         {
