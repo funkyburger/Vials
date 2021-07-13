@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "module": "System",
+    "outFile": "wwwroot/script/vials.js",
+    "strict": true,
+    "target": "es5"
+  }
+}

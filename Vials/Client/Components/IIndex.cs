@@ -8,10 +8,12 @@ namespace Vials.Shared.Components
 {
     public interface IIndex
     {
-        void Undo();
-        void Redo();
-        void New();
-        void MoveWasMade(Pouring pouring);
+        Task Undo();
+        Task Redo();
+        Task New();
+        Task MoveWasMade(Pouring pouring);
         Task FindPath();
+        VialSet VialSet { get; }
+        HistoryExport History { get; }
     }
 }

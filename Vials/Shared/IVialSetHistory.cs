@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Vials.Shared.Objects;
 
 namespace Vials.Shared
@@ -14,5 +15,7 @@ namespace Vials.Shared
         bool CanUndo { get; }
         bool CanRedo { get; }
         void Reset();
+        HistoryExport Export();
+        void Import(HistoryExport history);
     }
 }

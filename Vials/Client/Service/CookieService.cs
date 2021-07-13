@@ -27,5 +27,15 @@ namespace Vials.Client.Service
         {
             await _cookieStore.Store(new ApplicationCookie());
         }
+
+        public Task<ApplicationCookie> GetCookie()
+        {
+            return _cookieStore.Get();
+        }
+
+        public Task SetCookie(ApplicationCookie cookie)
+        {
+            return _cookieStore.Store(cookie);
+        }
     }
 }
