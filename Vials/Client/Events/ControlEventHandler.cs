@@ -8,26 +8,26 @@ namespace Vials.Client.Events
 {
     public class ControlEventHandler : IEventHandler
     {
-        private readonly IIndex Def;
+        private readonly IIndex _index;
 
-        public ControlEventHandler(IIndex def)
+        public ControlEventHandler(IIndex index)
         {
-            Def = def;
+            _index = index;
         }
 
         public Task Handle(object sender, EventType eventType)
         {
             if (eventType == EventType.Undo)
             {
-                Def.Undo();
+                return _index.Undo();
             }
             else if(eventType == EventType.Redo)
             {
-                Def.Redo();
+                return _index.Redo();
             }
             else if (eventType == EventType.New)
             {
-                Def.New();
+                return _index.New();
             }
 
             return Task.CompletedTask;

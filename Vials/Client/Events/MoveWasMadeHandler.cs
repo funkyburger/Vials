@@ -8,11 +8,11 @@ namespace Vials.Client.Events
 {
     public class MoveWasMadeHandler : IEventHandler
     {
-        private readonly IIndex _def;
+        private readonly IIndex _index;
 
-        public MoveWasMadeHandler(IIndex def)
+        public MoveWasMadeHandler(IIndex index)
         {
-            _def = def;
+            _index = index;
         }
 
         public Task Handle(object sender, EventType eventType)
@@ -24,7 +24,7 @@ namespace Vials.Client.Events
 
             var vialClickedHandler = sender as VialClickedHandler;
 
-            _def.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
+            _index.MoveWasMade(vialClickedHandler.Set.LastAppliedPouring);
             return Task.CompletedTask;
         }
     }

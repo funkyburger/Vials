@@ -35,37 +35,44 @@ namespace Vials.Client.CodeBehind
 
         public HistoryExport History => VialSetHistory.Export();
 
-        public void Undo()
+        public Task Undo()
         {
             if (vialSetView.Set.IsComplete)
             {
                 controls.CanUndo = false;
                 controls.CanRedo = false;
-                return;
+                return Task.CompletedTask;
             }
 
             vialSetView.Set = VialSetHistory.Undo(vialSetView.Set);
             controls.CanFindPath = true;
             RefreshControls();
+            return Task.CompletedTask;
         }
 
-        public void Redo()
+        public Task Redo()
         {
             if (vialSetView.Set.IsComplete)
             {
                 controls.CanUndo = false;
                 controls.CanRedo = false;
-                return;
+                return Task.CompletedTask;
             }
 
             vialSetView.Set = VialSetHistory.Redo(vialSetView.Set);
             controls.CanFindPath = true;
             RefreshControls();
+            return Task.CompletedTask;
         }
 
-        public void New()
+        public async Task New()
         {
-            NewGame();
+            if(await CookieService.DidUserConsent())
+            {
+                await CookieService.SetCookie(new ApplicationCookie());
+            }
+            
+            await NewGame();
         }
 
         public void MoveWasMade(Pouring pouring)
@@ -86,7 +93,6 @@ namespace Vials.Client.CodeBehind
 
         public Task RestoreGame(VialSet set, HistoryExport history)
         {
-            Console.WriteLine("restoring game");
             vialSetView.Set = set;
             VialSetHistory.Import(history);
             controls.CanFindPath = true;
