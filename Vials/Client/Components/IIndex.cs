@@ -14,5 +14,6 @@ namespace Vials.Shared.Components
         void MoveWasMade(Pouring pouring);
         Task FindPath();
         VialSet VialSet { get; }
+        HistoryExport History { get; }
     }
 }

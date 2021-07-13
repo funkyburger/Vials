@@ -33,6 +33,8 @@ namespace Vials.Client.CodeBehind
 
         public VialSet VialSet => vialSetView.Set;
 
+        public HistoryExport History => VialSetHistory.Export();
+
         public void Undo()
         {
             if (vialSetView.Set.IsComplete)
@@ -82,12 +84,11 @@ namespace Vials.Client.CodeBehind
             RefreshControls();
         }
 
-        public Task RestoreGame(VialSet set)
+        public Task RestoreGame(VialSet set, HistoryExport history)
         {
             Console.WriteLine("restoring game");
             vialSetView.Set = set;
-            // TODO restore that too
-            VialSetHistory.Reset();
+            VialSetHistory.Import(history);
             controls.CanFindPath = true;
 
             RefreshControls();
@@ -118,7 +119,7 @@ namespace Vials.Client.CodeBehind
 
                 if(cookie != null && cookie.VialSet != null)
                 {
-                    await RestoreGame(cookie.VialSet);
+                    await RestoreGame(cookie.VialSet, cookie.History);
                     return;
                 }
             }

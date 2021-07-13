@@ -29,6 +29,7 @@ namespace Vials.Client.Events
             var cookie = await _cookieService.GetCookie();
             
             cookie.VialSet = _index.VialSet;
+            cookie.History = _index.History;
 
             await _cookieService.SetCookie(cookie);
         }

@@ -561,7 +561,7 @@ namespace Vials.Shared.UnitTests
 
             history.Undo(set);
 
-            var export = await history.Export();
+            var export = history.Export();
             export.Pourings.Count().ShouldBe(4);
             export.Pourings.First().From.ShouldBe(1);
             export.Pourings.First().To.ShouldBe(2);
@@ -589,7 +589,7 @@ namespace Vials.Shared.UnitTests
                 Current = 2
             };
 
-            await history.Import(export);
+            history.Import(export);
 
             var list = history.ToList();
             list.Count.ShouldBe(4);

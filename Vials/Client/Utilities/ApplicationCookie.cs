@@ -8,6 +8,7 @@ namespace Vials.Client.Utilities
 {
     public class ApplicationCookie
     {
-        public VialSet VialSet;
+        public VialSet VialSet { get; set; }
+        public HistoryExport History { get; set; }
     }
 }

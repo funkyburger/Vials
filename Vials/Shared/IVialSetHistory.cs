@@ -15,7 +15,7 @@ namespace Vials.Shared
         bool CanUndo { get; }
         bool CanRedo { get; }
         void Reset();
-        Task<HistoryExport> Export();
-        Task Import(HistoryExport history);
+        HistoryExport Export();
+        void Import(HistoryExport history);
     }
 }

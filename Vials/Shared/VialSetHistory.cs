@@ -63,16 +63,16 @@ namespace Vials.Shared
             currentIndex = -1;
         }
 
-        public Task<HistoryExport> Export()
+        public HistoryExport Export()
         {
-            return Task.FromResult(new HistoryExport()
+            return new HistoryExport()
             {
                 Pourings = _pourings,
                 Current = currentIndex
-            });
+            };
         }
 
-        public Task Import(HistoryExport history)
+        public void Import(HistoryExport history)
         {
             Reset();
 
@@ -82,8 +82,6 @@ namespace Vials.Shared
             }
 
             currentIndex = history.Current;
-
-            return Task.CompletedTask;
         }
 
         public IList<Pouring> ToList() => _pourings;
