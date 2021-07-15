@@ -10,7 +10,7 @@ using Vials.Shared.Objects;
 using Vials.Server.Utilities;
 using Vials.Shared;
 
-namespace Vials.Server.UnitTests
+namespace Vials.Server.UnitTests.Utilities
 {
     public class PathFinderTests
     {

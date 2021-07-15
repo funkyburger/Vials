@@ -8,7 +8,7 @@ using Vials.Server.UnitTests.Utils;
 using Vials.Server.Utilities;
 using Vials.Shared.Objects;
 
-namespace Vials.Server.UnitTests
+namespace Vials.Server.UnitTests.Utilities
 {
     public class SetGeneratorTests
     {
