@@ -38,7 +38,7 @@ namespace Vials.Client.Service
         {
             if(!await DidUserConsent())
             {
-                throw new CookieConsentExcpetion();
+                throw new CookieConsentExcpetion("Cookie set without user consent.");
             }
 
             await _cookieStore.Store(cookie);
