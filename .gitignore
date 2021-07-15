@@ -5,9 +5,11 @@
 /.vs
 /Vials/Client/bin
 /Vials/Client/obj
+/Vials/Client/*.csproj.user
 /Vials/Client/wwwroot/script/vials.js
 /Vials/Server/bin
 /Vials/Server/obj
+/Vials/Server/*.csproj.user
 /Vials.Client.UnitTests/obj
 /Vials.Client.UnitTests/bin
 /Vials.Shared.UnitTests/obj
@@ -16,6 +18,7 @@
 /Vials.Server.UnitTests/bin
 /Vials/Shared/obj
 /Vials/Shared/bin
+/Vials/Shared/*.csproj.user
 /Vials.Core/bin
 /Vials.Core/obj
 
