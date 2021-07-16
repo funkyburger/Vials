@@ -6,7 +6,7 @@ using Vials.Shared.Exceptions;
 
 namespace Vials.Server.Utilities
 {
-    public class RandomGenerator : IRandomGenerator
+    public class PseudoRandomGenerator : IRandomGenerator
     {
         private const int dummy = 2114319875;
         private int previous = 0;
