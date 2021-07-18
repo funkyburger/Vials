@@ -14,7 +14,7 @@ namespace Vials.Server.UnitTests.Utilities
         [Test]
         public void ReturnsAPseudoRandomNumber()
         {
-            var generator = new RandomGenerator();
+            var generator = new PseudoRandomGenerator();
 
             var random = generator.Generate(123);
             random.ShouldBe(1057160183);
@@ -26,7 +26,7 @@ namespace Vials.Server.UnitTests.Utilities
         public void UseWithoutSeedThrowsException()
         {
             var exceptionThrown = false;
-            var generator = new RandomGenerator();
+            var generator = new PseudoRandomGenerator();
 
             try
             {
@@ -45,7 +45,7 @@ namespace Vials.Server.UnitTests.Utilities
         {
             var seed = new Random().Next();
             var randoms = new int[11];
-            var generator = new RandomGenerator();
+            var generator = new PseudoRandomGenerator();
 
             randoms[0] = generator.Generate(seed);
             for(int i = 0; i < 10; i++)
@@ -65,8 +65,8 @@ namespace Vials.Server.UnitTests.Utilities
         {
             var seed = new Random().Next();
             var randoms = new int[11];
-            var generator = new RandomGenerator();
-            var otherGenerator = new RandomGenerator();
+            var generator = new PseudoRandomGenerator();
+            var otherGenerator = new PseudoRandomGenerator();
 
             randoms[0] = generator.Generate(seed);
             for (int i = 0; i < 10; i++)
@@ -85,7 +85,7 @@ namespace Vials.Server.UnitTests.Utilities
         public void GeneratorIsSomewhatEquilibrated()
         {
             var seed = new Random().Next();
-            var generator = new RandomGenerator();
+            var generator = new PseudoRandomGenerator();
             var randoms = new List<int>();
 
             randoms.Add(generator.Generate(seed) % 100);
