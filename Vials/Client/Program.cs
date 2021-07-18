@@ -29,6 +29,7 @@ namespace Vials.Client
             builder.Services.AddScoped<Utilities.IColorToCssMapper, Utilities.ColorToCssMapper>();
             builder.Services.AddScoped<Utilities.ICookieAccess, Utilities.CookieAccess>();
             builder.Services.AddScoped<Utilities.ICookieStore, Utilities.CookieStore>();
+            builder.Services.AddScoped<Utilities.ILinkHelper, Utilities.LinkHelper>();
             builder.Services.AddScoped<IVialSetHandler, VialSetHandler>();
             builder.Services.AddScoped<IVialSetHistory, VialSetHistory>();
             builder.Services.AddScoped<Service.IGameService, Service.GameService>();

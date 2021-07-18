@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Client.Events;
+using Vials.Client.Utilities;
 using Vials.Shared.Components;
 
 namespace Vials.Client.CodeBehind
 {
     public class Controls : VialComponentBase, IControls
     {
+        [Inject] 
+        protected ILinkHelper LinkHelper { get; set; }
+
         private bool canUndo = false;
         public bool CanUndo {
             get 
@@ -39,6 +43,8 @@ namespace Vials.Client.CodeBehind
 
         public bool CanFindPath { get; set; }
 
+        public int GameNumber { get; set; }
+
         protected void New(MouseEventArgs e)
         {
             LaunchEvent(EventType.New);
@@ -57,6 +63,14 @@ namespace Vials.Client.CodeBehind
         protected void FindPath(MouseEventArgs e)
         {
             LaunchEvent(EventType.PathFindingRequested);
+        }
+
+        protected async Task KeyPressed(KeyboardEventArgs e)
+        {
+            if (e.Key.Equals("Enter"))
+            {
+                LinkHelper.NavigateToSpecificGame(GameNumber);
+            }
         }
     }
 }

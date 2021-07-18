@@ -10,6 +10,7 @@ using Vials.Client.Service;
 using Vials.Client.Utilities;
 using Vials.Shared;
 using Vials.Shared.Components;
+using Vials.Shared.Exceptions;
 using Vials.Shared.Objects;
 
 namespace Vials.Client.CodeBehind
@@ -24,6 +25,11 @@ namespace Vials.Client.CodeBehind
         protected IPathService PathService { get; set; }
         [Inject]
         protected ICookieService CookieService { get; set; }
+        [Inject]
+        protected ILinkHelper LinkHelper { get; set; }
+
+        [Parameter]
+        public string GameNumberUrlParameter { get; set; }
 
         protected VialSetView vialSetView;
 
@@ -97,13 +103,10 @@ namespace Vials.Client.CodeBehind
             RefreshControls();
         }
 
-        public async Task NewGame()
+        public Task NewGame()
         {
-            vialSetView.Set = await GameService.GetNewGame();
-            VialSetHistory.Reset();
-            controls.CanFindPath = true;
-
-            RefreshControls();
+            LinkHelper.NavigateToRandomGame();
+            return Task.CompletedTask;
         }
 
         public Task RestoreGame(VialSet set, HistoryExport history)
@@ -127,11 +130,29 @@ namespace Vials.Client.CodeBehind
             RefreshControls();
         }
 
+        protected override Task OnInitializedAsync()
+        {
+            int seed;
+            if (!int.TryParse(GameNumberUrlParameter, out seed))
+            {
+                LinkHelper.NavigateToRandomGame();
+            }
+
+            return base.OnInitializedAsync();
+        }
+
         protected override async void OnAfterRender(bool firstRender)
         {
+            int seed;
+            if (!int.TryParse(GameNumberUrlParameter, out seed))
+            {
+                throw new MissingSeedException("Seed for new game was not provided.");
+            }
+
+            controls.GameNumber = seed;
             controls.AddEventHandler(new ControlEventHandler(this));
             controls.AddEventHandler(new PathFindingRequestedHandler(this));
-
+            
             await AddBeforeUnloadEvent(new BeforeUnloadEventHandler(CookieService, this));
 
             if (await CookieService.DidUserConsent())
@@ -145,7 +166,10 @@ namespace Vials.Client.CodeBehind
                 }
             }
 
-            await NewGame();
+            vialSetView.Set = await GameService.GetNewGame();
+            VialSetHistory.Reset();
+            controls.CanFindPath = true;
+            RefreshControls();
         }
 
         private void RefreshControls()
