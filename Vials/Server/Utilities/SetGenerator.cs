@@ -9,12 +9,19 @@ namespace Vials.Server.Utilities
 {
     public class SetGenerator : ISetGenerator
     {
-        public VialSet Generate(int numberOfColors, int numberOfEmptyVials)
+        private readonly IColorStackFactory _stackFactory;
+
+        public SetGenerator(IColorStackFactory stackFactory)
+        {
+            _stackFactory = stackFactory;
+        }
+
+        public VialSet Generate(int numberOfColors, int numberOfEmptyVials, int seed)
         {
             var vialColors = new List<Color>();
             var vials = new List<Vial>();
 
-            foreach(var color in GeneratePalette(numberOfColors).Shuffle())
+            foreach(var color in _stackFactory.GenerateStack(numberOfColors, seed))
             {
                 vialColors.Add(color);
 
@@ -33,23 +40,6 @@ namespace Vials.Server.Utilities
             }
 
             return new VialSet() { Vials = vials };
-        }
-
-        private IEnumerable<Color> GeneratePalette(int numberOfColors)
-        {
-            var colors = Enum.GetValues(typeof(Color));
-            if(numberOfColors > colors.Length)
-            {
-                throw new Exception("Maximum number of colors exceeded.");
-            }
-
-            for(int i = 0; i < numberOfColors; i++)
-            {
-                for (int j = 0; j < Vial.Length; j++)
-                {
-                    yield return (Color)colors.GetValue(i + 1);
-                }
-            }
         }
     }
 }

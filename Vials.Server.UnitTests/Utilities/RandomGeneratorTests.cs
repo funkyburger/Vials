@@ -97,5 +97,22 @@ namespace Vials.Server.UnitTests.Utilities
             var average = (double)randoms.Sum() / (double)randoms.Count;
             average.ShouldBeInRange(-10d, 10d);
         }
+
+        [Test]
+        public void GeneratorMakeUnsignedInt()
+        {
+            var seed = 1792906449;
+            var generator = new PseudoRandomGenerator();
+            var randoms = new List<int>();
+
+            randoms.Add(generator.Generate(seed) % 100);
+            for (int i = 0; i < 100000; i++)
+            {
+                randoms.Add(generator.GenerateNext() % 100);
+            }
+
+            var average = (double)randoms.Sum() / (double)randoms.Count;
+            average.ShouldBeInRange(-10d, 10d);
+        }
     }
 }

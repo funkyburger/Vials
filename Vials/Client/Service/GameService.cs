@@ -17,13 +17,13 @@ namespace Vials.Client.Service
             _http = http;
         }
 
-        public async Task<VialSet> GetNewGame()
+        public async Task<VialSet> GetNewGame(int seed)
         {
             _http.DefaultRequestHeaders
               .Accept
               .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-            return await _http.GetFromJsonAsync<VialSet>("api/vial/new");
+            return await _http.GetFromJsonAsync<VialSet>($"api/vial/new?seed={seed}");
         }
     }
 }

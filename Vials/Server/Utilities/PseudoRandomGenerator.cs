@@ -19,6 +19,11 @@ namespace Vials.Server.Utilities
             return GenerateNext();
         }
 
+        public int Generate(int seed, int maxValue)
+        {
+            return MakePositiveAndBound(Generate(seed), maxValue);
+        }
+
         public int GenerateNext()
         {
             if (!internalSeed.HasValue)
@@ -30,6 +35,16 @@ namespace Vials.Server.Utilities
             internalSeed = (internalSeed.Value << 1) ^ previous >> 1;
             previous = temp;
             return internalSeed.Value;
+        }
+
+        public int GenerateNext(int maxValue)
+        {
+            return MakePositiveAndBound(GenerateNext(), maxValue);
+        }
+
+        private int MakePositiveAndBound(int randomValue, int maxValue)
+        {
+            return Math.Abs(randomValue) % (maxValue + 1);
         }
     }
 }

@@ -166,7 +166,7 @@ namespace Vials.Client.CodeBehind
                 }
             }
 
-            vialSetView.Set = await GameService.GetNewGame();
+            vialSetView.Set = await GameService.GetNewGame(seed);
             VialSetHistory.Reset();
             controls.CanFindPath = true;
             RefreshControls();

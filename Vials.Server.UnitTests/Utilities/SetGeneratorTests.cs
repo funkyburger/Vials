@@ -15,9 +15,9 @@ namespace Vials.Server.UnitTests.Utilities
         [Test]
         public void SetIsGenerated()
         {
-            var generator = new SetGenerator();
+            var generator = new SetGenerator(new TestColorStackFactory());
 
-            var set = generator.Generate(4, 2);
+            var set = generator.Generate(4, 2, 123);
 
             var colors = set.Vials.Select(v => v.Colors).ToArray();
             set.Vials.Count().ShouldBe(6);
@@ -34,9 +34,9 @@ namespace Vials.Server.UnitTests.Utilities
         [Test]
         public void GeneratorCanDoUpToTwelveColors()
         {
-            var generator = new SetGenerator();
+            var generator = new SetGenerator(new TestColorStackFactory());
 
-            var set = generator.Generate(12, 2);
+            var set = generator.Generate(12, 2, 123);
 
             var colors = set.Vials.Select(v => v.Colors).ToArray();
             set.Vials.Count().ShouldBe(14);
