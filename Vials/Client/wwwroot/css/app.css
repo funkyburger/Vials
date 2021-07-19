@@ -181,3 +181,40 @@ app {
         display: block;
     }
 }
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    cursor: help;
+}
+
+span {
+    visibility: hidden;
+    position: absolute;
+    width: 410px;
+    bottom: -140%;
+    left: -40%;
+    margin-left: -60px;
+    background-color: #363636;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+    span::before {
+        content: "";
+        position: absolute;
+        top: -29%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
+    }
+
+.tooltip-wrapper:hover span {
+    visibility: visible;
+}
