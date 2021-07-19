@@ -99,20 +99,35 @@ namespace Vials.Server.UnitTests.Utilities
         }
 
         [Test]
-        public void GeneratorMakeUnsignedInt()
+        public void GeneratorMakePositiveInt()
         {
-            var seed = 1792906449;
+            var seed = 1792906450;
             var generator = new PseudoRandomGenerator();
             var randoms = new List<int>();
 
-            randoms.Add(generator.Generate(seed) % 100);
-            for (int i = 0; i < 100000; i++)
+            randoms.Add(generator.Generate(seed, 20));
+            for (int i = 0; i < 4; i++)
             {
-                randoms.Add(generator.GenerateNext() % 100);
+                randoms.Add(generator.GenerateNext(20));
             }
 
-            var average = (double)randoms.Sum() / (double)randoms.Count;
-            average.ShouldBeInRange(-10d, 10d);
+            randoms.ShouldAllBe(i => i >= 0);
+        }
+
+        [Test]
+        public void MaxValueIsExcludedFromResults()
+        {
+            var seed = 1792906450;
+            var generator = new PseudoRandomGenerator();
+            var randoms = new List<int>();
+
+            randoms.Add(generator.Generate(seed, 20));
+            for (int i = 0; i < 2; i++)
+            {
+                randoms.Add(generator.GenerateNext(20));
+            }
+
+            randoms[2].ShouldBe(0);
         }
     }
 }

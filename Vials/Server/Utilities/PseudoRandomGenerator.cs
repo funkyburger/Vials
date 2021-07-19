@@ -44,7 +44,7 @@ namespace Vials.Server.Utilities
 
         private int MakePositiveAndBound(int randomValue, int maxValue)
         {
-            return Math.Abs(randomValue) % (maxValue + 1);
+            return Math.Abs(randomValue) % maxValue;
         }
     }
 }
