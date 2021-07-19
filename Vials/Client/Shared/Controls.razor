@@ -5,5 +5,5 @@
     <button @onclick="Undo" disabled="@(!CanUndo)">Undo</button>
     <button @onclick="Redo" disabled="@(!CanRedo)">Redo</button>
     <button @onclick="FindPath" disabled="@(!CanFindPath)">Find path</button>
-    Game number : <Tooltip Text="Press return to start a new game with given number"><input type="text" @onkeypress="KeyPressed" @bind-value="GameNumber" /></Tooltip>
+    Game number : <Tooltip Text="Press return to start a new game with given number"><input type="text" @onkeypress="KeyPressed" @bind-value="GameNumber" id="tbGameNumber" /></Tooltip>
 </div>

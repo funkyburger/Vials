@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace Vials.Client.CodeBehind
     {
         [Inject] 
         protected ILinkHelper LinkHelper { get; set; }
+
+        [Inject]
+        protected IHtmlHelper HtmlHelper { get; set; }
 
         private bool canUndo = false;
         public bool CanUndo {
@@ -69,7 +73,8 @@ namespace Vials.Client.CodeBehind
         {
             if (e.Key.Equals("Enter"))
             {
-                LinkHelper.NavigateToSpecificGame(GameNumber);
+                // TODO validation
+                LinkHelper.NavigateToSpecificGame(int.Parse(await HtmlHelper.GetElementValue("tbGameNumber")));
             }
         }
     }
