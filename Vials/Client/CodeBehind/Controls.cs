@@ -1,16 +1,24 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Client.Events;
+using Vials.Client.Utilities;
 using Vials.Shared.Components;
 
 namespace Vials.Client.CodeBehind
 {
     public class Controls : VialComponentBase, IControls
     {
+        [Inject] 
+        protected ILinkHelper LinkHelper { get; set; }
+
+        [Inject]
+        protected IHtmlHelper HtmlHelper { get; set; }
+
         private bool canUndo = false;
         public bool CanUndo {
             get 
@@ -39,6 +47,10 @@ namespace Vials.Client.CodeBehind
 
         public bool CanFindPath { get; set; }
 
+        public int GameNumber { get; set; }
+
+        public string TbGameNumberClass { get; set; }
+
         protected void New(MouseEventArgs e)
         {
             LaunchEvent(EventType.New);
@@ -57,6 +69,29 @@ namespace Vials.Client.CodeBehind
         protected void FindPath(MouseEventArgs e)
         {
             LaunchEvent(EventType.PathFindingRequested);
+        }
+
+        protected async Task KeyPressed(KeyboardEventArgs e)
+        {
+            if (e.Key.Equals("Enter"))
+            {
+                int number;
+                // The property GameNumber isn't refreshed on validation so the actual value has to be fetched more actively
+                if (int.TryParse(await HtmlHelper.GetElementValue("tbGameNumber"), out number))
+                {
+                    LinkHelper.NavigateToSpecificGame(number);
+                    SetGameNumberError(false);
+                }
+                else
+                {
+                    SetGameNumberError(true);
+                }
+            }
+        }
+
+        private void SetGameNumberError(bool hasError)
+        {
+            TbGameNumberClass = hasError ? "invalid" : "";
         }
     }
 }

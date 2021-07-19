@@ -9,8 +9,9 @@ using NUnit.Framework;
 using Vials.Shared.Objects;
 using Vials.Server.Utilities;
 using Vials.Shared;
+using Vials.Server.UnitTests.Utils;
 
-namespace Vials.Server.UnitTests
+namespace Vials.Server.UnitTests.Utilities
 {
     public class PathFinderTests
     {
@@ -119,10 +120,10 @@ namespace Vials.Server.UnitTests
             var source = new CancellationTokenSource();
             source.CancelAfter(timeOutMilliseconds);
 
-            var generator = new SetGenerator();
+            var generator = new SetGenerator(new TestColorStackFactory());
             var pathFinder = new PathFinder(new Cloner());
 
-            var set = generator.Generate(size, 2);
+            var set = generator.Generate(size, 2, 123);
 
             return await pathFinder.FindPath(set, source.Token);
         }

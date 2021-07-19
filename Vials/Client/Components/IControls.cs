@@ -11,5 +11,6 @@ namespace Vials.Shared.Components
         bool CanUndo { get; set; }
         bool CanRedo { get; set; }
         bool CanFindPath { get; set; }
+        int GameNumber { get; set; }
     }
 }

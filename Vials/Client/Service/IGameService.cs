@@ -8,6 +8,6 @@ namespace Vials.Client.Service
 {
     public interface IGameService
     {
-        Task<VialSet> GetNewGame();
+        Task<VialSet> GetNewGame(int seed);
     }
 }

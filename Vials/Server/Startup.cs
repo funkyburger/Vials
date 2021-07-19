@@ -26,6 +26,8 @@ namespace Vials.Server
 
             services.AddScoped<Utilities.ISetGenerator, Utilities.SetGenerator>();
             services.AddScoped<Utilities.IPathFinder, Utilities.PathFinder>();
+            services.AddScoped<Utilities.IColorStackFactory, Utilities.ColorStackFactory>();
+            services.AddScoped<Utilities.IRandomGenerator, Utilities.PseudoRandomGenerator>();
 
             services.AddScoped<Shared.ICloner, Shared.Cloner>();
         }

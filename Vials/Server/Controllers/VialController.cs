@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Server.Utilities;
+using Vials.Shared.Exceptions;
 using Vials.Shared.Objects;
 
 namespace Vials.Server.Controllers
@@ -22,9 +23,14 @@ namespace Vials.Server.Controllers
 
         [HttpGet]
         [Route("new")]
-        public VialSet New()
+        public VialSet New(int? seed)
         {
-            return _setGenerator.Generate(4, 2);
+            if (!seed.HasValue)
+            {
+                throw new MissingSeedException("Seed for new game was not provided.");
+            }
+
+            return _setGenerator.Generate(4, 2, seed.Value);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vials.Client.Exceptions;
 using Vials.Client.Utilities;
 using Vials.Shared.Objects;
 
@@ -33,9 +34,14 @@ namespace Vials.Client.Service
             return _cookieStore.Get();
         }
 
-        public Task SetCookie(ApplicationCookie cookie)
+        public async Task SetCookie(ApplicationCookie cookie)
         {
-            return _cookieStore.Store(cookie);
+            if(!await DidUserConsent())
+            {
+                throw new CookieConsentExcpetion("Cookie set without user consent.");
+            }
+
+            await _cookieStore.Store(cookie);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿@page "/"
+@page "/{GameNumberUrlParameter}"
 @inherits CodeBehind.Index
 
 <CookieDialog />
 
-<Controls @ref="controls"/>
+<Controls @ref="controls" />
 
 <VialSetView @ref="vialSetView" MoveWasMadeHandler="MoveWasMadeHandler" />

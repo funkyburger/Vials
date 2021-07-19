@@ -61,7 +61,7 @@ namespace Vials.Client.UnitTests.Utilities
                 }
             });
 
-            access.Value.ShouldBe("cookie={\"VialSet\":{\"Vials\":[{\"Colors\":[3,1]},{\"Colors\":[6,2]},{\"Colors\":[]}]}};SameSite=Strict");
+            access.Value.ShouldBe("cookie={\"VialSet\":{\"Vials\":[{\"Colors\":[3,1]},{\"Colors\":[6,2]},{\"Colors\":[]}]},\"History\":null};SameSite=Strict");
         }
 
         [Test]
