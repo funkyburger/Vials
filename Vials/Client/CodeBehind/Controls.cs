@@ -76,7 +76,8 @@ namespace Vials.Client.CodeBehind
             if (e.Key.Equals("Enter"))
             {
                 int number;
-                if(int.TryParse(await HtmlHelper.GetElementValue("tbGameNumber"), out number))
+                // The property GameNumber isn't refreshed on validation so the actual value has to be fetched more actively
+                if (int.TryParse(await HtmlHelper.GetElementValue("tbGameNumber"), out number))
                 {
                     LinkHelper.NavigateToSpecificGame(number);
                     SetGameNumberError(false);
