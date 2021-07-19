@@ -27,7 +27,7 @@ namespace Vials.Server.Utilities
 
             while (list.Any())
             {
-                index = _randomGenerator.GenerateNext(list.Count - 1); ;
+                index = _randomGenerator.GenerateNext(list.Count);
                 yield return list.ElementAt(index);
                 list.RemoveAt(index);
             }
