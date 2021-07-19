@@ -49,6 +49,8 @@ namespace Vials.Client.CodeBehind
 
         public int GameNumber { get; set; }
 
+        public string TbGameNumberClass { get; set; }
+
         protected void New(MouseEventArgs e)
         {
             LaunchEvent(EventType.New);
@@ -73,9 +75,22 @@ namespace Vials.Client.CodeBehind
         {
             if (e.Key.Equals("Enter"))
             {
-                // TODO validation
-                LinkHelper.NavigateToSpecificGame(int.Parse(await HtmlHelper.GetElementValue("tbGameNumber")));
+                int number;
+                if(int.TryParse(await HtmlHelper.GetElementValue("tbGameNumber"), out number))
+                {
+                    LinkHelper.NavigateToSpecificGame(number);
+                    SetGameNumberError(false);
+                }
+                else
+                {
+                    SetGameNumberError(true);
+                }
             }
+        }
+
+        private void SetGameNumberError(bool hasError)
+        {
+            TbGameNumberClass = hasError ? "invalid" : "";
         }
     }
 }
