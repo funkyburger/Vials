@@ -18,7 +18,7 @@ namespace Vials.Client.CodeBehind
             _timer.Enabled = true;
         }
 
-        private void TimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
+        private void TimerElapsed(object source, System.Timers.ElapsedEventArgs e)
         {
             Console.WriteLine("tick");
             StateHasChanged();
