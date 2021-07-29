@@ -1,9 +1,10 @@
 ﻿@inherits CodeBehind.Controls
 
 <div>
-    <button @onclick="New">New</button>
+    <button @onclick="New">sdvsdv</button>
     <button @onclick="Undo" disabled="@(!CanUndo)">Undo</button>
     <button @onclick="Redo" disabled="@(!CanRedo)">Redo</button>
     <button @onclick="FindPath" disabled="@(!CanFindPath)">Find path</button>
     Game number : <Tooltip Text="Press return to start a new game with given number"><input class="@TbGameNumberClass" type="text" @onkeypress="KeyPressed" @bind-value="GameNumber" id="tbGameNumber" /></Tooltip>
+    <Timer></Timer>
 </div>
