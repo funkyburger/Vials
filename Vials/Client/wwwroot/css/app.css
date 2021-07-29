@@ -189,7 +189,7 @@ app {
     cursor: help;
 }
 
-span {
+.tooltip-wrapper span {
     visibility: hidden;
     position: absolute;
     width: 410px;
@@ -204,16 +204,16 @@ span {
     z-index: 1;
 }
 
-    span::before {
-        content: "";
-        position: absolute;
-        top: -29%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent transparent #555 transparent;
-    }
+.tooltip-wrapper span::before {
+    content: "";
+    position: absolute;
+    top: -29%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #555 transparent;
+}
 
 .tooltip-wrapper:hover span {
     visibility: visible;
