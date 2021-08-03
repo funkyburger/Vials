@@ -10,6 +10,8 @@ namespace Vials.Shared.Objects
     {
         public static readonly int Length = 4;
 
+        public int FootPrint { get; set; }
+
         private IList<Color> _colors;
         public IEnumerable<Color> Colors { 
             get 

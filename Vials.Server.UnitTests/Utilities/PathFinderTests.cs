@@ -120,7 +120,7 @@ namespace Vials.Server.UnitTests.Utilities
             var source = new CancellationTokenSource();
             source.CancelAfter(timeOutMilliseconds);
 
-            var generator = new SetGenerator(new TestColorStackFactory());
+            var generator = new SetGenerator(new TestColorStackFactory(), new FakeRandomGenerator());
             var pathFinder = new PathFinder(new Cloner());
 
             var set = generator.Generate(size, 2, 123);

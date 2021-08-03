@@ -15,7 +15,7 @@ namespace Vials.Server.UnitTests.Utilities
         [Test]
         public void SetIsGenerated()
         {
-            var generator = new SetGenerator(new TestColorStackFactory());
+            var generator = new SetGenerator(new TestColorStackFactory(), new FakeRandomGenerator());
 
             var set = generator.Generate(4, 2, 123);
 
@@ -34,7 +34,7 @@ namespace Vials.Server.UnitTests.Utilities
         [Test]
         public void GeneratorCanDoUpToTwelveColors()
         {
-            var generator = new SetGenerator(new TestColorStackFactory());
+            var generator = new SetGenerator(new TestColorStackFactory(), new FakeRandomGenerator());
 
             var set = generator.Generate(12, 2, 123);
 
@@ -57,6 +57,24 @@ namespace Vials.Server.UnitTests.Utilities
             {
                 count.Key.ShouldNotBe(Color.None);
                 count.Value.ShouldBe(4);
+            }
+        }
+
+        [Test]
+        public void VialFootPrintsAreUnique()
+        {
+            var register = new Dictionary<int, int>();
+            int dummy;
+            var generator = new SetGenerator(new TestColorStackFactory()
+                , new FakeRandomGenerator(new int[] { 1, 2, 7, 9, 4, 3, 1, 9, 5, 6, 7, 2, 1, 3, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
+
+            var set = generator.Generate(12, 2, 123);
+
+            foreach (var vial in set.Vials.Take(12))
+            {
+                register.TryGetValue(vial.FootPrint, out dummy).ShouldBeFalse();
+
+                register.Add(vial.FootPrint, 0);
             }
         }
     }

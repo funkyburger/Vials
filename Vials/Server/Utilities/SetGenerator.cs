@@ -10,24 +10,38 @@ namespace Vials.Server.Utilities
     public class SetGenerator : ISetGenerator
     {
         private readonly IColorStackFactory _stackFactory;
+        private readonly IRandomGenerator _randomGenerator;
 
-        public SetGenerator(IColorStackFactory stackFactory)
+        public SetGenerator(IColorStackFactory stackFactory, IRandomGenerator randomGenerator)
         {
             _stackFactory = stackFactory;
+            _randomGenerator = randomGenerator;
         }
 
         public VialSet Generate(int numberOfColors, int numberOfEmptyVials, int seed)
         {
             var vialColors = new List<Color>();
             var vials = new List<Vial>();
+            var footPrint = _randomGenerator.Generate(new Random().Next());
+            var setFootPrints = new Dictionary<int, int>();
 
-            foreach(var color in _stackFactory.GenerateStack(numberOfColors, seed))
+            foreach (var color in _stackFactory.GenerateStack(numberOfColors, seed))
             {
                 vialColors.Add(color);
 
                 if(vialColors.Count >= Vial.Length)
                 {
-                    var vial = new Vial();
+                    while (setFootPrints.ContainsKey(footPrint))
+                    {
+                        footPrint = _randomGenerator.GenerateNext();
+                    }
+
+                    var vial = new Vial() {
+                        FootPrint = footPrint
+                    };
+
+                    setFootPrints.Add(footPrint, 0);
+
                     vial.Stack(vialColors);
                     vials.Add(vial);
                     vialColors = new List<Color>();
