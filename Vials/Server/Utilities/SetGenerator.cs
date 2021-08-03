@@ -24,6 +24,7 @@ namespace Vials.Server.Utilities
             var vials = new List<Vial>();
             var footPrint = _randomGenerator.Generate(new Random().Next());
             var setFootPrints = new Dictionary<int, int>();
+            setFootPrints.Add(0, 0); // Zeros not allowed as footprints.
 
             foreach (var color in _stackFactory.GenerateStack(numberOfColors, seed))
             {
@@ -50,7 +51,16 @@ namespace Vials.Server.Utilities
 
             for (int i = 0; i< numberOfEmptyVials; i++)
             {
-                vials.Add(new Vial());
+                while (setFootPrints.ContainsKey(footPrint))
+                {
+                    footPrint = _randomGenerator.GenerateNext();
+                }
+
+                vials.Add(new Vial() { 
+                    FootPrint = footPrint
+                });
+
+                setFootPrints.Add(footPrint, 0);
             }
 
             return new VialSet() { Vials = vials };

@@ -77,5 +77,16 @@ namespace Vials.Server.UnitTests.Utilities
                 register.Add(vial.FootPrint, 0);
             }
         }
+
+        [Test]
+        public void AllVialsGetsFootprint()
+        {
+            var generator = new SetGenerator(new TestColorStackFactory()
+                , new FakeRandomGenerator(new int[] { 1, 2, 7, 0, 4, 3, 1, 4, 5, 6, 7, 2, 1, 3, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
+
+            var set = generator.Generate(12, 2, 123);
+
+            set.Vials.Any(v => v.FootPrint == 0).ShouldBeFalse();
+        }
     }
 }
