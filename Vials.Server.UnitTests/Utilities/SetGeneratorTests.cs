@@ -17,7 +17,7 @@ namespace Vials.Server.UnitTests.Utilities
         {
             var generator = new SetGenerator(new TestColorStackFactory(), new FakeRandomGenerator());
 
-            var set = generator.Generate(4, 2, 123);
+            var set = generator.Generate(4, 2, 123, 456);
 
             var colors = set.Vials.Select(v => v.Colors).ToArray();
             set.Vials.Count().ShouldBe(6);
@@ -36,7 +36,7 @@ namespace Vials.Server.UnitTests.Utilities
         {
             var generator = new SetGenerator(new TestColorStackFactory(), new FakeRandomGenerator());
 
-            var set = generator.Generate(12, 2, 123);
+            var set = generator.Generate(12, 2, 123, 456);
 
             var colors = set.Vials.Select(v => v.Colors).ToArray();
             set.Vials.Count().ShouldBe(14);
@@ -68,7 +68,7 @@ namespace Vials.Server.UnitTests.Utilities
             var generator = new SetGenerator(new TestColorStackFactory()
                 , new FakeRandomGenerator(new int[] { 1, 2, 7, 9, 4, 3, 1, 9, 5, 6, 7, 2, 1, 3, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
 
-            var set = generator.Generate(12, 2, 123);
+            var set = generator.Generate(12, 2, 123, 456);
 
             foreach (var vial in set.Vials.Take(12))
             {
@@ -84,9 +84,20 @@ namespace Vials.Server.UnitTests.Utilities
             var generator = new SetGenerator(new TestColorStackFactory()
                 , new FakeRandomGenerator(new int[] { 1, 2, 7, 0, 4, 3, 1, 4, 5, 6, 7, 2, 1, 3, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
 
-            var set = generator.Generate(12, 2, 123);
+            var set = generator.Generate(12, 2, 123, 456);
 
             set.Vials.Any(v => v.FootPrint == 0).ShouldBeFalse();
+        }
+
+        [Test]
+        public void SetGetsFootprint()
+        {
+            var generator = new SetGenerator(new TestColorStackFactory()
+                , new FakeRandomGenerator(new int[] { 1, 2, 7, 0, 4, 3, 1, 4, 5, 6, 7, 2, 1, 3, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
+
+            var set = generator.Generate(12, 2, 123, 456);
+
+            set.FootPrint.ShouldBe(456);
         }
     }
 }

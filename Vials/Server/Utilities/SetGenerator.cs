@@ -18,11 +18,11 @@ namespace Vials.Server.Utilities
             _randomGenerator = randomGenerator;
         }
 
-        public VialSet Generate(int numberOfColors, int numberOfEmptyVials, int seed)
+        public VialSet Generate(int numberOfColors, int numberOfEmptyVials, int seed, int setFootPrint)
         {
             var vialColors = new List<Color>();
             var vials = new List<Vial>();
-            var footPrint = _randomGenerator.Generate(new Random().Next());
+            var footPrint = _randomGenerator.Generate(setFootPrint);
             var setFootPrints = new Dictionary<int, int>();
             setFootPrints.Add(0, 0); // Zeros not allowed as footprints.
 
@@ -63,7 +63,7 @@ namespace Vials.Server.Utilities
                 setFootPrints.Add(footPrint, 0);
             }
 
-            return new VialSet() { Vials = vials };
+            return new VialSet() { FootPrint = setFootPrint, Vials = vials };
         }
     }
 }
