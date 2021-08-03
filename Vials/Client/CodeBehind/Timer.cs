@@ -20,7 +20,6 @@ namespace Vials.Client.CodeBehind
 
         private void TimerElapsed(object source, System.Timers.ElapsedEventArgs e)
         {
-            Console.WriteLine("tick");
             StateHasChanged();
         }
 

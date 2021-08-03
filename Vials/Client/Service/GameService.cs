@@ -25,5 +25,10 @@ namespace Vials.Client.Service
 
             return await _http.GetFromJsonAsync<VialSet>($"api/vial/new?seed={seed}");
         }
+
+        public Task FinishGame(IEnumerable<long> track, int seed, int footprint)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

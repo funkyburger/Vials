@@ -8,5 +8,6 @@ namespace Vials.Shared.Components
     public interface IVialSetView
     {
         VialSet Set { get; set; }
+        Vial GetVial(int index);
     }
 }

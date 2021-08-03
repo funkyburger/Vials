@@ -27,11 +27,15 @@ namespace Vials.Client.CodeBehind
         protected ICookieService CookieService { get; set; }
         [Inject]
         protected ILinkHelper LinkHelper { get; set; }
+        [Inject]
+        protected IMoveTracker Tracker { get; set; }
+        [Inject]
+        protected IObfuscator Obfuscator { get; set; }
 
         [Parameter]
         public string GameNumberUrlParameter { get; set; }
 
-        protected VialSetView vialSetView;
+        protected IVialSetView vialSetView;
 
         protected IControls controls;
 
@@ -94,11 +98,23 @@ namespace Vials.Client.CodeBehind
                 controls.CanRedo = false;
                 controls.CanFindPath = false;
 
+                int seed;
+                if (!int.TryParse(GameNumberUrlParameter, out seed))
+                {
+                    throw new Exception("This game has no seed.");
+                }
+
+                await GameService.FinishGame(Tracker.GetStack(), seed, VialSet.FootPrint);
+
                 RefreshControls();
                 return;
             }
 
             VialSetHistory.RegisterMove(pouring);
+            Tracker.Stack(vialSetView.GetVial(pouring.From).FootPrint,
+                vialSetView.GetVial(pouring.To).FootPrint,
+                Obfuscator.Obfuscate(DateTime.Now.Ticks, vialSetView.Set.FootPrint));
+
             controls.CanFindPath = true;
             RefreshControls();
         }
@@ -169,6 +185,7 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = await GameService.GetNewGame(seed);
             VialSetHistory.Reset();
             controls.CanFindPath = true;
+            Tracker.Stack(0, 0, Obfuscator.Obfuscate(DateTime.Now.Ticks, vialSetView.Set.FootPrint));
             RefreshControls();
         }
 

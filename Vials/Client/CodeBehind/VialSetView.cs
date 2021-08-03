@@ -12,7 +12,7 @@ namespace Vials.Client.CodeBehind
 {
     public class VialSetView : VialComponentBase, IVialSetView
     {
-        public IEnumerable<VialView> vialViews;
+        public IEnumerable<IVialView> vialViews;
 
         [Inject]
         protected IVialSetHandler VialSetHandler { get; set; }
@@ -34,12 +34,9 @@ namespace Vials.Client.CodeBehind
             }
         }
 
-        public void AddEventHandlerToVials(IEventHandler eventHandler)
+        public Vial GetVial(int index)
         {
-            foreach (var view in vialViews)
-            {
-                view.AddEventHandler(eventHandler);
-            }
+            return Set.Vials.Skip(index).First();
         }
     }
 }
