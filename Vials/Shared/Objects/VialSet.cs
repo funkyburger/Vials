@@ -8,6 +8,7 @@ namespace Vials.Shared.Objects
 {
     public class VialSet
     {
+        public int FootPrint { get; set; }
         public IEnumerable<Vial> Vials { get; set; }
         [JsonIgnore]
         public bool HasChanged => LastAppliedPouring != null;
