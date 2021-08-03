@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vials.Client.Components;
 using Vials.Client.Events;
 using Vials.Client.Utilities;
 using Vials.Shared.Components;
@@ -18,6 +19,8 @@ namespace Vials.Client.CodeBehind
 
         [Inject]
         protected IHtmlHelper HtmlHelper { get; set; }
+
+        protected ITimer timer { get; set; }
 
         private bool canUndo = false;
         public bool CanUndo {
@@ -50,6 +53,11 @@ namespace Vials.Client.CodeBehind
         public int GameNumber { get; set; }
 
         public string TbGameNumberClass { get; set; }
+
+        public void StopTimer()
+        {
+            timer.StopTimer();
+        }
 
         protected void New(MouseEventArgs e)
         {

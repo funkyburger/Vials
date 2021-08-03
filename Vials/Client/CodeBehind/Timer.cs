@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vials.Client.Components;
 
 namespace Vials.Client.CodeBehind
 {
-    public class Timer : VialComponentBase
+    public class Timer : VialComponentBase, ITimer
     {
         private System.Timers.Timer _timer;
         private DateTime Start = default;
@@ -16,6 +17,11 @@ namespace Vials.Client.CodeBehind
             _timer = new System.Timers.Timer(100);
             _timer.Elapsed += TimerElapsed;
             _timer.Enabled = true;
+        }
+
+        public void StopTimer()
+        {
+            _timer.Enabled = false;
         }
 
         private void TimerElapsed(object source, System.Timers.ElapsedEventArgs e)

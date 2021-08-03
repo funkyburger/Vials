@@ -97,6 +97,7 @@ namespace Vials.Client.CodeBehind
                 controls.CanUndo = false;
                 controls.CanRedo = false;
                 controls.CanFindPath = false;
+                controls.StopTimer();
 
                 int seed;
                 if (!int.TryParse(GameNumberUrlParameter, out seed))
