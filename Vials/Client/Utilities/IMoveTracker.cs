@@ -7,7 +7,7 @@ namespace Vials.Client.Utilities
 {
     public interface IMoveTracker
     {
-        void Stack(int fromFootPrint, int toFootPrint);
-        IEnumerable<int> GetStack();
+        void Stack(long fromFootPrint, long toFootPrint, long ts);
+        IEnumerable<long> GetStack();
     }
 }
