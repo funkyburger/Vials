@@ -30,7 +30,7 @@ namespace Vials.Server.Controllers
                 throw new MissingSeedException("Seed for new game was not provided.");
             }
 
-            return _setGenerator.Generate(4, 2, seed.Value);
+            return _setGenerator.Generate(4, 2, seed.Value, new Random().Next());
         }
     }
 }
