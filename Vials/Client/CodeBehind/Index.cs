@@ -29,8 +29,6 @@ namespace Vials.Client.CodeBehind
         protected ILinkHelper LinkHelper { get; set; }
         [Inject]
         protected IMoveTracker Tracker { get; set; }
-        [Inject]
-        protected IObfuscator Obfuscator { get; set; }
 
         [Parameter]
         public string GameNumberUrlParameter { get; set; }
@@ -114,7 +112,7 @@ namespace Vials.Client.CodeBehind
             VialSetHistory.RegisterMove(pouring);
             Tracker.Stack(vialSetView.GetVial(pouring.From).FootPrint,
                 vialSetView.GetVial(pouring.To).FootPrint,
-                Obfuscator.Obfuscate(DateTime.Now.Ticks, vialSetView.Set.FootPrint));
+                DateTime.Now.Ticks);
 
             controls.CanFindPath = true;
             RefreshControls();
@@ -186,7 +184,7 @@ namespace Vials.Client.CodeBehind
             vialSetView.Set = await GameService.GetNewGame(seed);
             VialSetHistory.Reset();
             controls.CanFindPath = true;
-            Tracker.Stack(0, 0, Obfuscator.Obfuscate(DateTime.Now.Ticks, vialSetView.Set.FootPrint));
+            Tracker.Stack(0, 0, DateTime.Now.Ticks);
             RefreshControls();
         }
 
