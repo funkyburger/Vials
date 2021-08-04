@@ -35,6 +35,7 @@ namespace Vials.Client
             builder.Services.AddScoped<IVialSetHandler, VialSetHandler>();
             builder.Services.AddScoped<IVialSetHistory, VialSetHistory>();
             builder.Services.AddScoped<IObfuscator, Obfuscator>();
+            builder.Services.AddScoped<IFinishedGamePacker, FinishedGamePacker>();
             builder.Services.AddScoped<Service.IGameService, Service.GameService>();
             builder.Services.AddScoped<Service.IPathService, Service.PathService>();
             builder.Services.AddScoped<Service.ICookieService, Service.CookieService>();

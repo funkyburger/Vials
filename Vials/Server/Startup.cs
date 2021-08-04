@@ -30,6 +30,8 @@ namespace Vials.Server
             services.AddScoped<Utilities.IRandomGenerator, Utilities.PseudoRandomGenerator>();
 
             services.AddScoped<Shared.ICloner, Shared.Cloner>();
+            services.AddScoped<Shared.IObfuscator, Shared.Obfuscator>();
+            services.AddScoped<Shared.IFinishedGamePacker, Shared.FinishedGamePacker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
