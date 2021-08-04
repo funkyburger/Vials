@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Vials.Shared.Extensions;
 
 namespace Vials.Shared
 {
@@ -10,12 +11,12 @@ namespace Vials.Shared
 
         public long Obfuscate(long input, long key)
         {
-            return (input ^ key) ^ _magicNumber;
+            return (input ^ key.MirrorBytes()) ^ _magicNumber;
         }
 
         public long Unobfuscate(long input, long key)
         {
-            return (input ^ _magicNumber) ^ key;
+            return (input ^ _magicNumber) ^ key.MirrorBytes();
         }
     }
 }
