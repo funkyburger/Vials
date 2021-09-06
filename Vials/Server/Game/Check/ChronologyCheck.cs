@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vials.Shared.Exceptions;
+using Vials.Shared.Extensions;
 using Vials.Shared.Objects;
 
 namespace Vials.Server.Game.Check
