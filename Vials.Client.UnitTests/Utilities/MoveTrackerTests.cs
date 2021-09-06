@@ -19,11 +19,11 @@ namespace Vials.Client.UnitTests.Utilities
         {
             var tracker = new MoveTracker();
 
-            tracker.Stack(1, 2);
-            tracker.Stack(3, 4);
-            tracker.Stack(5, 6);
+            tracker.Stack(1, 2, 0);
+            tracker.Stack(3, 4, 0);
+            tracker.Stack(5, 6, 0);
 
-            tracker.GetStack().IsEqualTo(new int[] { 1, 2, 3, 4, 5, 6 });
+            tracker.GetStack().IsEqualTo(new long[] { 1, 2, 0, 3, 4, 0, 5, 6, 0 });
         }
     }
 }
