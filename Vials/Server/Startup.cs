@@ -28,10 +28,16 @@ namespace Vials.Server
             services.AddScoped<Utilities.IPathFinder, Utilities.PathFinder>();
             services.AddScoped<Utilities.IColorStackFactory, Utilities.ColorStackFactory>();
             services.AddScoped<Utilities.IRandomGenerator, Utilities.PseudoRandomGenerator>();
+            services.AddScoped<Utilities.ISetMoveMaker, Utilities.SetMoveMaker>();
 
             services.AddScoped<Shared.ICloner, Shared.Cloner>();
             services.AddScoped<Shared.IObfuscator, Shared.Obfuscator>();
             services.AddScoped<Shared.IFinishedGamePacker, Shared.FinishedGamePacker>();
+
+            services.AddScoped<Game.IFinishedGameHelper, Game.FinishedGameHelper>();
+            services.AddScoped<Game.Check.IFinishedGamerChecker, Game.Check.FinishedGamerChecker>();
+            services.AddScoped<Game.Check.IGameCheck, Game.Check.ChronologyCheck>();
+            services.AddScoped<Game.Check.IGameCheck, Game.Check.CompletionCheck>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

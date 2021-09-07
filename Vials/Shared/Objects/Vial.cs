@@ -133,6 +133,16 @@ namespace Vials.Shared.Objects
             return !IsFull && TopColor == color;
         }
 
+        public bool CanPourFrom(Color color)
+        {
+            if(color == Color.None)
+            {
+                return false;
+            }
+
+            return TopColor == color;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();
