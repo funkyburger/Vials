@@ -85,6 +85,10 @@ namespace Vials.Client.CodeBehind
 
         public async Task MoveWasMade(Pouring pouring)
         {
+            Tracker.Stack(vialSetView.GetVial(pouring.From).FootPrint,
+                vialSetView.GetVial(pouring.To).FootPrint,
+                DateTime.Now.Ticks);
+
             if (VialSet.IsComplete)
             {
                 if (await CookieService.DidUserConsent())
@@ -110,10 +114,7 @@ namespace Vials.Client.CodeBehind
             }
 
             VialSetHistory.RegisterMove(pouring);
-            Tracker.Stack(vialSetView.GetVial(pouring.From).FootPrint,
-                vialSetView.GetVial(pouring.To).FootPrint,
-                DateTime.Now.Ticks);
-
+            
             controls.CanFindPath = true;
             RefreshControls();
         }
